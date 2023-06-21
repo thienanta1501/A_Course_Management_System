@@ -13,7 +13,7 @@ void initListID(List_ID& l);
 void inputOneID(ifstream& ListID, ID_User& x);
 void inputListID(ifstream& ListID, List_ID& l);
 void outputListID(List_ID l);
-bool checkID(List_ID l, ID_User* User);
+bool checkID(ID_User* User);
 
 
 
@@ -36,9 +36,11 @@ void outputOneStudent(Student x);
 void inputListStudent(fstream& ListStudent, List_Student& l);
 void outputListStudent(List_Student l);
 
+Node_Staff* checkInfoInListStaff(ID_User* User);
+Node_Student* checkInfoInListStudent(ID_User* User);
 void viewInfo(ID_User* User);
 
-Node_ID* checkListID(List_ID l, ID_User* User);
+Node_ID* checkListID(ID_User* User);
 void changePassword(ID_User* User, List_ID& l, string newPassword);
 void outputFileListID(ofstream& ListID, List_ID l);
 
@@ -59,7 +61,7 @@ void outputListCourse(Semester a);
 
 
 
-
+void loading();
 void loginSystem();
 
 

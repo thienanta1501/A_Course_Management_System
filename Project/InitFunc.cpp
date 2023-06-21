@@ -163,7 +163,7 @@ void outputOneStudent(Student x)
 
 void inputListStudent(fstream& ListStudent, List_Student& l)
 {
-	//l.ClassName = ListStudent;
+	//l.ClassName = tostring(ListStudent);
 	while (ListStudent.eof() == false)
 	{
 		Student x;

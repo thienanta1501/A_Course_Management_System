@@ -3,6 +3,8 @@
 
 int main()
 {
+	loading();
 	loginSystem();
-
+	system("pause");
+	return 0;
 }

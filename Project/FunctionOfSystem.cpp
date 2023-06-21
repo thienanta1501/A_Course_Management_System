@@ -9,7 +9,7 @@ void loading()
 	ListIDin.open("ListID.csv", ios::in);
 	initListID(lID);
 	inputListID(ListIDin, lID);
-	outputListID(lID); //test inputListID
+	//outputListID(lID); //test inputListID
 	ListStaff.open("ListStaff.csv", ios_base::in);
 	initListStaff(lS);
 	inputListStaff(ListStaff, lS);
@@ -68,12 +68,14 @@ void loading()
 	inputListYear(lAll, _2020_2021);
 	inputListYear(lAll, _2021_2022);
 	//outputListYear(lAll);  
+	ListIDin.close();
+	ListStaff.close();
 }
 
 //A user must log in to the system
-bool checkID(List_ID l, ID_User* User)
+bool checkID(ID_User* User)
 {
-	Node_ID* p = l.head;
+	Node_ID* p = lID.head;
 	while (p != NULL)
 	{
 		if ((p->User.Social_ID == User->Social_ID) && (p->User.Password == User->Password))
@@ -108,7 +110,7 @@ Node_Student* checkInfoInListStudent(ID_User* User)
 			Node_Student* r = q->a.head;
 			while (r != NULL)
 			{
-				if (User->Social_ID.compare(r->User.Social_ID) == 0) return r;
+				if (User->Social_ID == r->User.Social_ID) return r;
 				r = r->next;
 			}
 			q = q->next;
@@ -132,9 +134,9 @@ void viewInfo(ID_User* User)
 }
 
 //Change the password
-Node_ID* checkListID(List_ID l, ID_User* User)
+Node_ID* checkListID(ID_User* User)
 {
-	Node_ID* p = l.head;
+	Node_ID* p = lID.head;
 	while (p != NULL)
 	{
 		if (User->Social_ID.compare(p->User.Social_ID) == 0) return p;
@@ -145,7 +147,7 @@ Node_ID* checkListID(List_ID l, ID_User* User)
 
 void changePassword(ID_User* User, List_ID& l, string newPassword)
 {
-	Node_ID* p = checkListID(l, User);
+	Node_ID* p = checkListID(User);
 	p->User.Password = newPassword;
 }
 
