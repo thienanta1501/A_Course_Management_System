@@ -1,0 +1,9 @@
+﻿  AcademicStaffMember.cpp
+  FunctionOfSystem.cpp
+  InitFunc.cpp
+  Main.cpp
+  Menu.cpp
+  Student.cpp
+  Generating Code...
+C:\Users\ADMIN\OneDrive - VNU-HCMUS\HocTap\A_Course_Management_System\Project\FunctionOfSystem.cpp(118): warning C4715: 'checkInfoInListStudent': not all control paths return a value
+  Project.vcxproj -> C:\Users\ADMIN\OneDrive - VNU-HCMUS\HocTap\A_Course_Management_System\Debug\Project.exe
