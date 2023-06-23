@@ -82,12 +82,16 @@ void removeMiddle(List_Student& l, string IDStudent);
 void removeStudentOfCourse(Semester& a, string id, string StudentID);
 void deleteCourse(Semester& a, string id);
 
-void viewListCourseOfStudent();
-void viewAtAnyTime(List_Year lAll);
+void viewListClasses(List_Year lAll);
+void viewAClass(List_Year lAll, string name);
+void viewListCourses(List_Year lAll, string name, string semester);
+void viewListStudentOfCourse(List_Year lAll, string courseid);
 
 void loading(List_Year& lAll);
 void loginSystem(List_Year& lAll);
 void schoolYear(List_Year& lAll);
-void semester(List_Year& lAll);
+void beginSemester(List_Year& lAll);
+void viewListCourseOfStudent(Semester a, string StudentID);
+void viewAtAnyTime(List_Year lAll);
 
 

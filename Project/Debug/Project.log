@@ -1,7 +1,2 @@
-﻿  FunctionOfSystem.cpp
-  Menu.cpp
-  Generating Code...
-C:\Users\ADMIN\OneDrive - VNU-HCMUS\HocTap\A_Course_Management_System\Project\FunctionOfSystem.cpp(120): warning C4715: 'checkInfoInListStudent': not all control paths return a value
-C:\Users\ADMIN\OneDrive - VNU-HCMUS\HocTap\A_Course_Management_System\Project\FunctionOfSystem.cpp(222): warning C4715: 'findListStudent': not all control paths return a value
-C:\Users\ADMIN\OneDrive - VNU-HCMUS\HocTap\A_Course_Management_System\Project\FunctionOfSystem.cpp(236): warning C4715: 'findCourse': not all control paths return a value
+﻿  Menu.cpp
   Project.vcxproj -> C:\Users\ADMIN\OneDrive - VNU-HCMUS\HocTap\A_Course_Management_System\Debug\Project.exe

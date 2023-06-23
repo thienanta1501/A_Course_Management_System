@@ -333,13 +333,6 @@ void deleteCourse(Semester & a, string id)
 	}
 }
 
-//In a semester, a student still can:
-void viewListCourseOfStudent()
-{
-
-
-}
-
 //At any time, an academic staff member can:
 void viewListClasses(List_Year lAll)
 {
@@ -371,53 +364,57 @@ void viewAClass(List_Year lAll, string name)
 	}
 }
 
-//void viewListCourses(List_Year lAll, string name, int semester)
-//{
-//	Node_Year* p = lAll.head;
-//	while (p != NULL)
-//	{
-//		if (p->a.Name == name)
-//		{
-//			Semester temp = p->a.semester[semester - 1];
-//			Node_Course* q = temp.lC.head;
-//			while (q != NULL)
-//			{
-//				cout << q->course.CourseID << " - " << q->course.CourseName << endl;
-//				q = q->next;
-//			}
-//		}
-//		p = p->next;
-//	}
-//}
-
-void viewListStudentOfCourse()
+void viewListCourses(List_Year lAll, string name, string semester)
 {
-
+	Node_Year* p = lAll.head;
+	while (p != NULL)
+	{
+		if (p->a.Name == name)
+		{
+			Node_Semester* q = p->a.lSemester.head;
+			while (q != NULL)
+			{
+				if (q->semester.Name == semester)
+				{
+					Node_Course* r = q->semester.lC.head;
+					while (r != NULL)
+					{
+						outputCourseabb(r->course);
+						r = r->next;
+					}
+				}
+				q = q->next;
+			}
+		}
+		p = p->next;
+	}
 }
 
-void viewAtAnyTime(List_Year lAll)
+void viewListStudentOfCourse(List_Year lAll, string courseid)
 {
-	cout << "15. View a list of classes." << endl;
-	viewListClasses(lAll);
-	cout << "16. View a list of students in a class." << endl;
-	string classname;
-	cout << "ENTER NAME OF THE CLASS THAT YOU WANT TO VIEW: ";
-	cin >> classname;
-	viewAClass(lAll, classname);
-	cout << "17. View a list of courses." << endl;
-	string schoolyearname;
-	cout << "ENTER NAME OF THE SCHOOL YEAR: ";
-	cin >> schoolyearname;
-	int semester;
-	cout << "ENTER NUMBER'S SEMESTER OF THE SCHOOL YEAR: ";
-	cin >> semester;
-	//viewListCourses(lAll, schoolyearname, semester);
-	cout << "18. View a list of student in a course." << endl;
-	string courseid;
-	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO VIEW LIST STUDENT: ";
-	cin >> courseid;
-	viewListStudentOfCourse();
+	Node_Year* p = lAll.head;
+	while (p != NULL)
+	{
+		Node_Semester* q = p->a.lSemester.head;
+		while (q != NULL)
+		{
+			Node_Course* r = q->semester.lC.head;
+			while (r != NULL)
+			{
+				if (r->course.CourseID == courseid)
+				{
+					outputListStudent(r->course.ListOfStudent);
+					return;
+				}
+				r = r->next;
+			}
+			q = q->next;
+		}
+		p = p->next;
+	}
 }
+
+
 
 //At the end of a semester, an academic staff member can:
 void endSemester()
@@ -425,8 +422,6 @@ void endSemester()
 	cout << "19. Export a list of students in a course to a CSV file." << endl;
 
 	cout << "20. Import the scoreboard of a course.";
-
-
 }
 
 //When 

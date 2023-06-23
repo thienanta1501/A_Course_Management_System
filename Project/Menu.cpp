@@ -6,203 +6,227 @@
 // void viewListCourseOfStudent()
 //void viewAtAnyTime()
 
+/*THANG 9 CREATE NEW SCHOOL YEAR NEW SEMESTER 1
+				THANG 1 NEW SEMESTER 2
+				THANG 5 NEW SEMESTER 3
+				//Dau semester
+				6 -> 13 (Staff)
+				15 -> 18 (Staff)
 
+				//Semester
+				14 (Student)
+				15 -> 18 (Staff)
+				//Cuoi semester
+				15 -> 18 (Staff)
+				19 -> 23 (Staff)
+				24 (Student)
+				*/
 
 string identifyUser(ID_User* User)
 {
-	if (checkInfoInListStaff != 0) return "Staff";
+	int temp = stoi(User->Social_ID);
+	if (temp < 10000000) return "Staff";
 	else return "Student";
 }
 
-void interfaceOfStudent(List_Year lAll, ID_User* User)
+void interfaceOfStudent(List_Year& lAll, ID_User* User)
 {
-	string temp;
-	cout << "ENTER CURRENT MONTH TO CONTINUE: ";
-	cin >> temp;
-	int MonthOfSystem;
-	MonthOfSystem = stoi(temp);
-	switch (MonthOfSystem)
+	int _temp = 1;
+	while (_temp)
 	{
-	case 1: {
-		system("cls");
-		//Dau semester 2
-		viewListCourseOfStudent();
-		system("pause");
+		string temp;
+		cout << "ENTER CURRENT MONTH TO CONTINUE: ";
+		cin >> temp;
+		int MonthOfSystem;
+		MonthOfSystem = stoi(temp);
+		switch (MonthOfSystem)
+		{
+		case 1: {
+			system("cls");
+			//Dau semester 2
+			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			system("pause");
+		}
+		case 2: {
+			system("cls");
+			//Semester 2
+			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			system("pause");
+		}
+		case 3: {
+			system("cls");
+			//Semester 2
+			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			system("pause");
+		}
+		case 4: {
+			system("cls");
+			//Cuoi Semester 2
+			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			system("pause");
+		}
+		case 5: {
+			system("cls");
+			//Dau semester 3
+			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			system("pause");
+		}
+		case 6: {
+			system("cls");
+			//Semester 3
+			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			system("pause");
+		}
+		case 7: {
+			system("cls");
+			//Semester 3
+			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			system("pause");
+		}
+		case 8: {
+			//Cuoi Semester 3
+			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			system("pause");
+		}
+		case 9: {
+			system("cls");
+			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			system("pause");
+		}
+		case 10: {
+			system("cls");
+			//Semester 1
+			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			system("pause");
+		}
+		case 11: {
+			system("cls");
+			//Semester 1
+			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			system("pause");
+		}
+		case 12: {
+			system("cls");
+			//Cuoi Semester 1
+			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			system("pause");
+		}
+		default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
+		}
+		cout << "DO YOU WANT TO CONTINUE?" << endl;
+		cout << "0. No!" << endl;
+		cout << "1. Yes!" << endl;
+		cin >> _temp;
 	}
-	case 2: {
-		system("cls");
-		//Semester 2
-		viewListCourseOfStudent();
-		system("pause");
-	}
-	case 3: {
-		system("cls");
-		//Semester 2
-		viewListCourseOfStudent();
-		system("pause");
-	}
-	case 4: {
-		system("cls");
-		//Cuoi Semester 2
-		viewListCourseOfStudent();
-		system("pause");
-	}
-	case 5: {
-		system("cls");
-		//Dau semester 3
-		viewListCourseOfStudent();
-		system("pause");
-	}
-	case 6: {
-		system("cls");
-		//Semester 3
-		viewListCourseOfStudent();
-		system("pause");
-	}
-	case 7: {
-		system("cls");
-		//Semester 3
-		viewListCourseOfStudent();
-		system("pause");
-	}
-	case 8: {
-		//Cuoi Semester 3
-		viewListCourseOfStudent();
-		system("pause");
-	}
-	case 9: {
-		system("cls");
-		//Dau school year
-		
-
-		//Dau semester 1
-		viewListCourseOfStudent();
-		system("pause");
-	}
-	case 10: {
-		system("cls");
-		//Semester 1
-		viewListCourseOfStudent();
-		system("pause");
-	}
-	case 11: {
-		system("cls");
-		//Semester 1
-		viewListCourseOfStudent();
-		system("pause");
-	}
-	case 12: {
-		system("cls");
-		//Cuoi Semester 1
-		viewListCourseOfStudent();
-		system("pause");
-	}
-	default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
-	}
-
 }
 
-void interfaceOfStaff(List_Year lAll, ID_User* User)
+void interfaceOfStaff(List_Year& lAll, ID_User* User)
 {
-	string temp;
-	cout << "ENTER CURRENT MONTH TO CONTINUE: ";
-	cin >> temp;
-	int MonthOfSystem;
-	MonthOfSystem = stoi(temp);
-	switch (MonthOfSystem)
+	int _temp = 1;
+	while (_temp)
 	{
-	case 1: {
-		system("cls");
-		//Dau semester 2
-		semester(lAll);
-		//viewAtAnyTime(lAll);
-		system("pause");
-		break;
+		int MonthOfSystem;
+		cout << "ENTER CURRENT MONTH TO CONTINUE: ";
+		cin >> MonthOfSystem;
+		switch (MonthOfSystem)
+		{
+		case 1: {
+			system("cls");
+			//Dau semester 2
+			beginSemester(lAll);
+			viewAtAnyTime(lAll);
+			system("pause");
+			break;
+		}
+		case 2: {
+			system("cls");
+			//Semester 2
+			viewAtAnyTime(lAll);
+			system("pause");
+			break;
+		}
+		case 3: {
+			system("cls");
+			//Semester 2
+			viewAtAnyTime(lAll);
+			system("pause");
+			break;
+		}
+		case 4: {
+			system("cls");
+			//Cuoi Semester 2
+			viewAtAnyTime(lAll);
+			system("pause");
+			break;
+		}
+		case 5: {
+			system("cls");
+			//Dau semester 3
+			beginSemester(lAll);
+			viewAtAnyTime(lAll);
+			system("pause");
+			break;
+		}
+		case 6: {
+			system("cls");
+			//Semester 3
+			viewAtAnyTime(lAll);
+			system("pause");
+			break;
+		}
+		case 7: {
+			system("cls");
+			//Semester 3
+			viewAtAnyTime(lAll);
+			system("pause");
+			break;
+		}
+		case 8: {
+			system("cls");
+			//Cuoi Semester 3
+			viewAtAnyTime(lAll);
+			system("pause");
+			break;
+		}
+		case 9: {
+			system("cls");
+			//Dau school year
+			schoolYear(lAll);
+			//Dau semester 1
+			beginSemester(lAll);
+			//viewAtAnyTime();
+			system("pause");
+			break;
+		}
+		case 10: {
+			system("cls");
+			//Semester 1
+			viewAtAnyTime(lAll);
+			system("pause");
+			break;
+		}
+		case 11: {
+			system("cls");
+			//Semester 1
+			viewAtAnyTime(lAll);
+			system("pause");
+			break;
+		}
+		case 12: {
+			system("cls");
+			//Cuoi Semester 1
+			viewAtAnyTime(lAll);
+			system("pause");
+			break;
+		}
+		default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
+		}
+		cout << "DO YOU WANT TO CONTINUE WITH UPDATING INFORMATION OF SCHOOL?" << endl;
+		cout << "0. No!" << endl;
+		cout << "1. Yes!" << endl;
+		cin >> _temp;
 	}
-	case 2: {
-		system("cls");
-		//Semester 2
-		viewAtAnyTime(lAll);
-		system("pause");
-		break;
-	}
-	case 3: {
-		system("cls");
-		//Semester 2
-		viewAtAnyTime(lAll);
-		system("pause");
-		break;
-	}
-	case 4: {
-		system("cls");
-		//Cuoi Semester 2
-		viewAtAnyTime(lAll);
-		system("pause");
-		break;
-	}
-	case 5: {
-		system("cls");
-		//Dau semester 3
-		semester(lAll);
-		viewAtAnyTime(lAll);
-		system("pause");
-		break;
-	}
-	case 6: {
-		system("cls");
-		//Semester 3
-		viewAtAnyTime(lAll);
-		system("pause");
-		break;
-	}
-	case 7: {
-		system("cls");
-		//Semester 3
-		viewAtAnyTime(lAll);
-		system("pause");
-		break;
-	}
-	case 8: {
-		system("cls");
-		//Cuoi Semester 3
-		viewAtAnyTime(lAll);
-		system("pause");
-		break;
-	}
-	case 9: {
-		system("cls");
-		//Dau school year
-		schoolYear(lAll);
-		//Dau semester 1
-		semester(lAll);
-		//viewAtAnyTime();
-		system("pause");
-		break;
-	}
-	case 10: {
-		system("cls");
-		//Semester 1
-		viewAtAnyTime(lAll);
-		system("pause");
-		break;
-	}
-	case 11: {
-		system("cls");
-		//Semester 1
-		viewAtAnyTime(lAll);
-		system("pause");
-		break;
-	}
-	case 12: {
-		system("cls");
-		//Cuoi Semester 1
-		viewAtAnyTime(lAll);
-		system("pause");
-		break;
-	}
-	default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
-	}
-
+	
 }
 
 void schoolYear(List_Year& lAll)
@@ -307,11 +331,12 @@ void schoolYear(List_Year& lAll)
 	
 }
 
-void semester(List_Year& lAll)
+void beginSemester(List_Year& lAll)
 {
-	string temp;
-	while (1)
+	int _temp = 1;
+	while (_temp)
 	{
+		string temp;
 		cout << "Hello! It's time to begin new semester!" << endl;
 		cout << "-----------------------MENU-----------------------" << endl;
 		cout << "6. Create a semester." << endl;
@@ -430,6 +455,97 @@ void semester(List_Year& lAll)
 		}
 		default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
 		}
+		cout << "DO YOU WANT TO CONTINUE WITH UPDATING THE NEW SEMESTER?" << endl;
+		cout << "0. No!" << endl;
+		cout << "1. Yes!" << endl;
+		cin >> _temp;
+	}
+}
+
+void viewListCourseOfStudent(Semester a, string StudentID)
+{
+	cout << "----------------YOUR LIST OF COURSES----------------" << endl;
+	int temp = 1;
+	Node_Course* p = a.lC.head;
+	while (p != NULL)
+	{ 
+		Node_Student* q = p->course.ListOfStudent.head;
+		while (q != NULL)
+		{
+			if (q->User.Student_ID == StudentID)
+			{
+				cout << temp << ". " << endl;
+				temp++;
+				outputCourseabb(p->course);
+			}
+			q = q->next;
+		}
+		p = p->next;
+	}
+
+}
+
+void viewAtAnyTime(List_Year lAll)
+{
+	int _temp = 1;
+	while (_temp)
+	{
+		string temp;
+		cout << "Hello! What do you want to view?" << endl;
+		cout << "-----------------------MENU-----------------------" << endl;
+		cout << "15. View a list of classes." << endl;
+		cout << "16. View a list of student in a class." << endl;
+		cout << "17. View a list of courses." << endl;
+		cout << "18. View a list of student in a course." << endl;
+		cout << "--------------------------------------------------" << endl;
+		cout << "CHOOSE YOUR ACTION!" << endl;
+		cin >> temp;
+		int select;
+		select = stoi(temp);
+		switch (select)
+		{
+		case 15: {
+			system("cls");
+			viewListClasses(lAll);
+			system("pause");
+			break;
+		}
+		case 16: {
+			system("cls");
+			string classname;
+			cout << "ENTER NAME OF THE CLASS THAT YOU WANT TO VIEW: ";
+			cin >> classname;
+			viewAClass(lAll, classname);
+			system("pause");
+			break;
+		}
+		case 17: {
+			system("cls");
+			string schoolyearname;
+			cout << "ENTER NAME OF THE SCHOOL YEAR: ";
+			cin >> schoolyearname;
+			string semester;
+			cout << "ENTER NUMBER'S SEMESTER OF THE SCHOOL YEAR: ";
+			cin >> semester;
+			viewListCourses(lAll, schoolyearname, semester);
+			system("pause");
+			break;
+		}
+		case 18: {
+			system("cls");
+			string courseid;
+			cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO VIEW LIST STUDENT: ";
+			cin >> courseid;
+			viewListStudentOfCourse(lAll, courseid);
+			system("pause");
+			break;
+		}
+		default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
+		}
+		cout << "DO YOU WANT TO CONTINUE WITH VIEW LISTS?" << endl;
+		cout << "0. No!" << endl;
+		cout << "1. Yes!" << endl;
+		cin >> _temp;
 	}
 }
 
@@ -504,21 +620,6 @@ void loginSystem(List_Year& lAll)
 			}
 			case 4: {
 				system("cls");
-				/*THANG 9 CREATE NEW SCHOOL YEAR NEW SEMESTER 1
-				THANG 1 NEW SEMESTER 2
-				THANG 5 NEW SEMESTER 3
-				//Dau semester
-				6 -> 13 (Staff)
-				15 -> 18 (Staff)
-
-				//Semester
-				14 (Student)
-				15 -> 18 (Staff)
-				//Cuoi semester
-				15 -> 18 (Staff)
-				19 -> 23 (Staff)
-				24 (Student)
-				*/
 				if (identifyUser(User) == "Staff") interfaceOfStaff(lAll, User);
 				else interfaceOfStudent(lAll, User);
 				system("pause");
