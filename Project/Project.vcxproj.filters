@@ -29,12 +29,6 @@
     <ClCompile Include="FunctionOfSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AcademicStaffMember.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Student.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InitFunc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

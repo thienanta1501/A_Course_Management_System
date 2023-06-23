@@ -30,15 +30,15 @@ void initListCourse(List_Course& l);
 
 
 Node_Student* createNodeStudent(Student x);
-void initListStudent(List_Student& l);
+void initListStudent(List_Student& l, string ClassName);
 void inputOneStudent(fstream& ListStudent, Student& x);
 void outputOneStudent(Student x);
 void inputListStudent(fstream& ListStudent, List_Student& l);
 void outputListStudent(List_Student l);
 
-Node_Staff* checkInfoInListStaff(ID_User* User);
-Node_Student* checkInfoInListStudent(ID_User* User);
-void viewInfo(ID_User* User);
+Node_Staff* checkInfoInListStaff(List_Year lAll, ID_User* User);
+Node_Student* checkInfoInListStudent(List_Year lAll, ID_User* User);
+void viewInfo(List_Year lAll, ID_User* User);
 
 Node_ID* checkListID(ID_User* User);
 void changePassword(ID_User* User, List_ID& l, string newPassword);
@@ -46,22 +46,29 @@ void outputFileListID(ofstream& ListID, List_ID l);
 
 
 Node_School_Year* createNodeSchoolYear(List_Student x);
-void initListSchoolYear(List_School_Year& l);
-void inputOneSchoolYear(fstream& ListStudent, List_Student& x);
+void initListSchoolYear(List_School_Year& l, string name);
+void inputOneSchoolYear(fstream& ListStudent, List_Student& x, string ClassName);
 void inputListSchoolYear(List_School_Year& l, List_Student x);
 void outputListSchoolYear(List_School_Year l);
 
 Node_Year* createNodeYear(List_School_Year x);
-void initListYear(List_Year& l);
+void initListYear(List_Year& lAll);
 void inputListYear(List_Year& l, List_School_Year x);
 void outputListYear(List_Year l);
 
 void inputListCourse(List_Course& l);
 void outputListCourse(Semester a);
 
+Student enterOneStudent();
+void add1stStudent(List_School_Year& l, string addclass, Student x);
+Node_School_Year* findListStudent(List_School_Year l, string classname);
+void schoolYear(List_Year& lAll);
 
+//void SEMESTER(List_Year& lAll);
+void viewListCourseOfStudent();
+void viewAtAnyTime(List_Year lAll);
 
-void loading();
-void loginSystem();
+void loading(List_Year& lAll);
+void loginSystem(List_Year& lAll);
 
 

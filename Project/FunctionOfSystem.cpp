@@ -3,7 +3,7 @@
 
 
 //Khoi tao du lieu cua he thong
-void loading()
+void loading(List_Year& lAll)
 {
 	//A function discribe when A Academic Staff Member import all Files
 	ListIDin.open("ListID.csv", ios::in);
@@ -28,37 +28,37 @@ void loading()
 	Class21CTT4.open("21CTT4.csv", ios_base::in);
 	initListYear(lAll);
 	//Create 2018 - 2019
-	initListSchoolYear(_2018_2019);
-	inputOneSchoolYear(Class18CTT2, l18CTT2);
-	inputOneSchoolYear(Class18CTT3, l18CTT3);
-	inputOneSchoolYear(Class18CTT4, l18CTT4);
+	initListSchoolYear(_2018_2019, "2018-2019");
+	inputOneSchoolYear(Class18CTT2, l18CTT2, "18CTT2");
+	inputOneSchoolYear(Class18CTT3, l18CTT3, "18CTT3");
+	inputOneSchoolYear(Class18CTT4, l18CTT4, "18CTT4");
 	inputListSchoolYear(_2018_2019, l18CTT2);
 	inputListSchoolYear(_2018_2019, l18CTT3);
 	inputListSchoolYear(_2018_2019, l18CTT4);
 	//outputListSchoolYear(_2018_2019);
 	//Create 2019 - 2020
-	initListSchoolYear(_2019_2020);
-	inputOneSchoolYear(Class19CTT2, l19CTT2);
-	inputOneSchoolYear(Class19CTT3, l19CTT3);
-	inputOneSchoolYear(Class19CTT4, l19CTT4);
+	initListSchoolYear(_2019_2020, "2019-2020");
+	inputOneSchoolYear(Class19CTT2, l19CTT2, "19CTT2");
+	inputOneSchoolYear(Class19CTT3, l19CTT3, "19CTT3");
+	inputOneSchoolYear(Class19CTT4, l19CTT4, "19CTT4");
 	inputListSchoolYear(_2019_2020, l19CTT2);
 	inputListSchoolYear(_2019_2020, l19CTT3);
 	inputListSchoolYear(_2019_2020, l19CTT4);
 	//outputListSchoolYear(_2019_2020);
 	//Create 2020 - 2021
-	initListSchoolYear(_2020_2021);
-	inputOneSchoolYear(Class20CTT2, l20CTT2);
-	inputOneSchoolYear(Class20CTT3, l20CTT3);
-	inputOneSchoolYear(Class20CTT4, l20CTT4);
+	initListSchoolYear(_2020_2021, "2020-2021");
+	inputOneSchoolYear(Class20CTT2, l20CTT2, "20CTT2");
+	inputOneSchoolYear(Class20CTT3, l20CTT3, "20CTT3");
+	inputOneSchoolYear(Class20CTT4, l20CTT4, "20CTT4");
 	inputListSchoolYear(_2020_2021, l20CTT2);
 	inputListSchoolYear(_2020_2021, l20CTT3);
 	inputListSchoolYear(_2020_2021, l20CTT4);
 	//outputListSchoolYear(_2020_2021);
 	//Create 2021 - 2022
-	initListSchoolYear(_2021_2022);
-	inputOneSchoolYear(Class21CTT2, l21CTT2);
-	inputOneSchoolYear(Class21CTT3, l21CTT3);
-	inputOneSchoolYear(Class21CTT4, l21CTT4);
+	initListSchoolYear(_2021_2022, "2021-2022");
+	inputOneSchoolYear(Class21CTT2, l21CTT2, "21CTT2");
+	inputOneSchoolYear(Class21CTT3, l21CTT3, "21CTT3");
+	inputOneSchoolYear(Class21CTT4, l21CTT4, "21CTT4");
 	inputListSchoolYear(_2021_2022, l21CTT2);
 	inputListSchoolYear(_2021_2022, l21CTT3);
 	inputListSchoolYear(_2021_2022, l21CTT4);
@@ -67,7 +67,7 @@ void loading()
 	inputListYear(lAll, _2019_2020);
 	inputListYear(lAll, _2020_2021);
 	inputListYear(lAll, _2021_2022);
-	//outputListYear(lAll);  
+	outputListYear(lAll);  
 	ListIDin.close();
 	ListStaff.close();
 }
@@ -88,7 +88,7 @@ bool checkID(ID_User* User)
 //He/she can view his/her own profile info, change the password, or log out the system.
 
 //View his/her own profile info
-Node_Staff* checkInfoInListStaff(ID_User* User)
+Node_Staff* checkInfoInListStaff(List_Year lAll, ID_User* User)
 {
 	Node_Staff* p = lS.head;
 	while (p != NULL)
@@ -99,7 +99,7 @@ Node_Staff* checkInfoInListStaff(ID_User* User)
 	return 0;
 }
 
-Node_Student* checkInfoInListStudent(ID_User* User)
+Node_Student* checkInfoInListStudent(List_Year lAll, ID_User* User)
 {
 	Node_Year* p = lAll.head;
 	while (p != NULL)
@@ -119,16 +119,16 @@ Node_Student* checkInfoInListStudent(ID_User* User)
 	}
 }
 
-void viewInfo(ID_User* User)
+void viewInfo(List_Year lAll, ID_User* User)
 {
-	if (checkInfoInListStaff(User) != 0)
+	if (checkInfoInListStaff(lAll, User) != 0)
 	{
-		outputOneStaff(checkInfoInListStaff(User)->User);
+		outputOneStaff(checkInfoInListStaff(lAll, User)->User);
 		return;
 	}
-	if (checkInfoInListStudent(User) != 0)
+	if (checkInfoInListStudent(lAll, User) != 0)
 	{
-		outputOneStudent(checkInfoInListStudent(User)->User);
+		outputOneStudent(checkInfoInListStudent(lAll, User)->User);
 		return;
 	}
 }
@@ -184,59 +184,43 @@ Student enterOneStudent()
 	return x;
 }
 
-void add1stStudent(List_Student& l, Student x)
+void add1stStudent(List_School_Year& l, string addclass, Student x)
 {
-	Node_Student* p = createNodeStudent(x);
-	if (l.head == NULL)
+	Node_Student* q = createNodeStudent(x);
+	Node_School_Year* p = l.head;
+	while (p != NULL)
 	{
-		l.head = p;
-		l.tail = p;
-	}
-	else
-	{
-		l.tail->next = p;
-		l.tail = p;
+		if (p->a.ClassName == addclass) {
+			if (p->a.head == NULL)
+			{
+				p->a.head = q;
+				p->a.tail = q;
+			}
+			else
+			{
+				p->a.tail->next = q;
+				p->a.tail = q;
+			}
+		}
+		p = p->next;
 	}
 }
 
-void SCHOOLYEAR(List_Year& lAll)
+Node_School_Year* findListStudent(List_School_Year l, string classname)
 {
-	int course_num = 3; //Bien dem cac nam hoc tính 2018-2019 la 0
-	//SEPTEMBER
-	//An academic staff member will
-	//if user is staff will
-	cout << "At the beginning of a school year (often in September), you can: " << endl;
-	cout << "1. Create a school year." << endl;
-	course_num++;
-	List_School_Year _2022_2023;
-	initListSchoolYear(_2022_2023);
-	//inputListYear(lAll, _2022_2023);
-	cout << "2. Create several classes for 1st-year	students." << endl;
-	fstream Class22CTT2, Class22CTT3, Class22CTT4;
-	List_Student l22CTT2, l22CTT3, l22CTT4;
-	inputOneSchoolYear(Class22CTT2, l22CTT2);
-	inputOneSchoolYear(Class22CTT3, l22CTT3);
-	inputOneSchoolYear(Class22CTT4, l22CTT4);
-	cout << "3. Add new 1st year students to 1st-year classes." << endl;
-	add1stStudent(l22CTT2, enterOneStudent());
-	cout << "4. Import a CSV file." << endl;
-	Class22CTT2.open("22CTT2.csv", ios_base::in);
-	Class22CTT3.open("22CTT3.csv", ios_base::in);
-	Class22CTT4.open("22CTT4.csv", ios_base::in);
-	//Create 2022 - 2023
-	initListSchoolYear(_2022_2023);
-	inputListSchoolYear(_2022_2023, l22CTT2);
-	inputListSchoolYear(_2022_2023, l22CTT3);
-	inputListSchoolYear(_2022_2023, l22CTT4);
-	//outputListSchoolYear(_2022_2023);
-	cout << "5. Not need to add 2nd-year, 3rd-year, or 4th-year students." << endl;
-	Class22CTT2.close();
-	Class22CTT3.close();
-	Class22CTT4.close();
+	Node_School_Year* p = l.head;
+	while (p != NULL)
+	{
+		if (p->a.ClassName == classname) {
+			return p;
+		}
+		p = p->next;
+	}
 }
+
 
 //Semester
-void inputSemester(Semester& a, List_Year lAll)
+void inputSemester(Semester& a, List_Year& lAll)
 {
 	cout << "ENTER SEMESTER'S INFORMATION!" << endl;
 	cout << "NUMBER OF SEMESTER: " << endl;
@@ -294,12 +278,22 @@ void addStudenttoCourse(Semester& a, string id, Student extra)
 	while (p != NULL)
 	{
 		if (p->course.CourseID == id) {
-			p->course.ListOfStudent.tail->next = q;
-			p->course.ListOfStudent.tail = q;
+			if (p->course.ListOfStudent.head == NULL)
+			{
+				p->course.ListOfStudent.head = q;
+				p->course.ListOfStudent.tail = q;
+			}
+			else
+			{
+				p->course.ListOfStudent.tail->next = q;
+				p->course.ListOfStudent.tail = q;
+			}
 		}
 		p = p->next;
 	}
 }
+
+
 
 //void removeStudentOfCourse(Semester& a, string id, string StudentID)
 //{
@@ -333,57 +327,57 @@ void addStudenttoCourse(Semester& a, string id, Student extra)
 //	}
 //}
 
-void SEMESTER(List_Year& lAll)
-{
-	cout << "6. Create a semester. " << endl;
-	Semester Sdemo;
-	inputSemester(Sdemo, lAll);
-	cout << "7. Add a course to this semester. " << endl;
-	initListCourse(Sdemo.lC);
-	inputListCourse(Sdemo.lC);
-	cout << "8. Upload a CSV file containing a list of student enrolled in the course." << endl;
-	fstream Class22CTT2;
-	List_Student lSOfCourse;
-	Class22CTT2.open("22CTT2.csv", ios_base::in);
-	initListStudent(lSOfCourse);
-	inputListStudent(Class22CTT2, lSOfCourse);
-	Sdemo.lC.tail->course.ListOfStudent = lSOfCourse;
-	Class22CTT2.close();
-	cout << "9. View the list of courses." << endl;
-	outputListCourse(Sdemo);
-	cout << "10. Update course information." << endl; //Update full information
-	string updatingID;
-	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO UPDATE: ";
-	cin >> updatingID;
-	updateCourse(Sdemo, updatingID);
-	cout << "11. Add a student to the course." << endl;
-	Student Sextra = enterOneStudent();
-	string addID;
-	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO ADD TO: ";
-	cin >> addID;
-	addStudenttoCourse(Sdemo, addID, Sextra);
-	cout << "12. Remove a student from the course." << endl;
-	string removeID;
-	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO REMOVE A STUDENT: ";
-	cin >> removeID;
-	string SIDremove;
-	cout << "ENTER STUDENT ID OF A STUDENT THAT YOU WANT TO REMOVE: ";
-
-	cout << "13. Delete a course." << endl;
-	string deleteID;
-	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO DELETE: ";
-	cin >> deleteID;
-}
+//void SEMESTER(List_Year& lAll)
+//{
+//	cout << "6. Create a semester. " << endl;
+//	Semester Sdemo;
+//	inputSemester(Sdemo, lAll);
+//	cout << "7. Add a course to this semester. " << endl;
+//	initListCourse(Sdemo.lC);
+//	inputListCourse(Sdemo.lC);
+//	cout << "8. Upload a CSV file containing a list of student enrolled in the course." << endl;
+//	fstream Class22CTT2;
+//	List_Student lSOfCourse;
+//	Class22CTT2.open("22CTT2.csv", ios_base::in);
+//	initListStudent(lSOfCourse);
+//	inputListStudent(Class22CTT2, lSOfCourse);
+//	Sdemo.lC.tail->course.ListOfStudent = lSOfCourse;
+//	Class22CTT2.close();
+//	cout << "9. View the list of courses." << endl;
+//	outputListCourse(Sdemo);
+//	cout << "10. Update course information." << endl; //Update full information
+//	string updatingID;
+//	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO UPDATE: ";
+//	cin >> updatingID;
+//	updateCourse(Sdemo, updatingID);
+//	cout << "11. Add a student to the course." << endl;
+//	Student Sextra = enterOneStudent();
+//	string addID;
+//	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO ADD TO: ";
+//	cin >> addID;
+//	addStudenttoCourse(Sdemo, addID, Sextra);
+//	cout << "12. Remove a student from the course." << endl;
+//	string removeID;
+//	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO REMOVE A STUDENT: ";
+//	cin >> removeID;
+//	string SIDremove;
+//	cout << "ENTER STUDENT ID OF A STUDENT THAT YOU WANT TO REMOVE: ";
+//
+//	cout << "13. Delete a course." << endl;
+//	string deleteID;
+//	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO DELETE: ";
+//	cin >> deleteID;
+//}
 
 //In a semester, a student still can:
-void viewListCourseOfStudent(Student a, List_Course b)
+void viewListCourseOfStudent()
 {
 
 
 }
 
 //At any time, an academic staff member can:
-void viewListClasses()
+void viewListClasses(List_Year lAll)
 {
 	Node_Year* p = lAll.head;
 	while (p != NULL)
@@ -398,7 +392,7 @@ void viewListClasses()
 	}
 }
 
-void viewAClass(string name)
+void viewAClass(List_Year lAll, string name)
 {
 	Node_Year* p = lAll.head;
 	while (p != NULL)
@@ -413,7 +407,7 @@ void viewAClass(string name)
 	}
 }
 
-void viewListCourses(string name, int semester)
+void viewListCourses(List_Year lAll, string name, int semester)
 {
 	Node_Year* p = lAll.head;
 	while (p != NULL)
@@ -437,15 +431,15 @@ void viewListStudentOfCourse()
 
 }
 
-void viewAtAnyTime()
+void viewAtAnyTime(List_Year lAll)
 {
 	cout << "15. View a list of classes." << endl;
-	viewListClasses();
+	viewListClasses(lAll);
 	cout << "16. View a list of students in a class." << endl;
 	string classname;
 	cout << "ENTER NAME OF THE CLASS THAT YOU WANT TO VIEW: ";
 	cin >> classname;
-	viewAClass(classname);
+	viewAClass(lAll, classname);
 	cout << "17. View a list of courses." << endl;
 	string schoolyearname;
 	cout << "ENTER NAME OF THE SCHOOL YEAR: ";
@@ -453,7 +447,7 @@ void viewAtAnyTime()
 	int semester;
 	cout << "ENTER NUMBER'S SEMESTER OF THE SCHOOL YEAR: ";
 	cin >> semester;
-	viewListCourses(schoolyearname, semester);
+	viewListCourses(lAll, schoolyearname, semester);
 	cout << "18. View a list of student in a course." << endl;
 	string courseid;
 	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO VIEW LIST STUDENT: ";

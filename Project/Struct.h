@@ -153,6 +153,5 @@ static List_ID lID;
 static List_Staff lS;
 static List_Student l18CTT2, l18CTT3, l18CTT4, l19CTT2, l19CTT3, l19CTT4, l20CTT2, l20CTT3, l20CTT4, l21CTT2, l21CTT3, l21CTT4;
 static List_School_Year _2018_2019, _2019_2020, _2020_2021, _2021_2022;
-static List_Year lAll;
 
 

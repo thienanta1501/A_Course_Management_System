@@ -132,8 +132,9 @@ Node_Student* createNodeStudent(Student x)
 	return p;
 }
 
-void initListStudent(List_Student& l)
+void initListStudent(List_Student& l, string ClassName)
 {
+	l.ClassName = ClassName;
 	l.head = NULL;
 	l.tail = NULL;
 }
@@ -163,7 +164,6 @@ void outputOneStudent(Student x)
 
 void inputListStudent(fstream& ListStudent, List_Student& l)
 {
-	//l.ClassName = tostring(ListStudent);
 	while (ListStudent.eof() == false)
 	{
 		Student x;
@@ -201,15 +201,16 @@ Node_School_Year* createNodeSchoolYear(List_Student x)
 	return p;
 }
 
-void initListSchoolYear(List_School_Year& l)
+void initListSchoolYear(List_School_Year& l, string name)
 {
 	l.head = NULL;
 	l.tail = NULL;
+	l.Name = name;
 }
 
-void inputOneSchoolYear(fstream& ListStudent, List_Student& x)
+void inputOneSchoolYear(fstream& ListStudent, List_Student& x, string ClassName)
 {
-	initListStudent(x);
+	initListStudent(x, ClassName);
 	inputListStudent(ListStudent, x);
 	//outputListStudent(x); //test inputListStudent
 }
@@ -234,7 +235,7 @@ void outputListSchoolYear(List_School_Year l) //test inputListSchoolYear
 	Node_School_Year* p = l.head;
 	while (p != NULL)
 	{
-		cout << "-----------------------Class-----------------------" << endl;
+		cout << "-----------------" << p->a.ClassName << "-----------------" << endl;
 		outputListStudent(p->a);
 		p = p->next;
 	}
@@ -255,27 +256,27 @@ void initListYear(List_Year& l)
 	l.tail = NULL;
 }
 
-void inputListYear(List_Year& l, List_School_Year x)
+void inputListYear(List_Year& lAll, List_School_Year x)
 {
 	Node_Year* p = createNodeYear(x);
-	if (l.head == NULL)
+	if (lAll.head == NULL)
 	{
-		l.head = p;
-		l.tail = p;
+		lAll.head = p;
+		lAll.tail = p;
 	}
 	else
 	{
-		l.tail->next = p;
-		l.tail = p;
+		lAll.tail->next = p;
+		lAll.tail = p;
 	}
 }
 
-void outputListYear(List_Year l) //test inputListYear
+void outputListYear(List_Year lAll) //test inputListYear
 {
-	Node_Year* p = l.head;
+	Node_Year* p = lAll.head;
 	while (p != NULL)
 	{
-		cout << "-----------------------School Year-----------------------" << endl;
+		cout << "-----------------" << p->a.Name << "-----------------" << endl;
 		outputListSchoolYear(p->a);
 		p = p->next;
 	}
