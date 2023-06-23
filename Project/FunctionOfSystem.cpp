@@ -67,7 +67,7 @@ void loading(List_Year& lAll)
 	inputListYear(lAll, _2019_2020);
 	inputListYear(lAll, _2020_2021);
 	inputListYear(lAll, _2021_2022);
-	outputListYear(lAll);  
+	//outputListYear(lAll);  
 	ListIDin.close();
 	ListStaff.close();
 }
@@ -173,10 +173,13 @@ Student enterOneStudent()
 	cin >> x.No;
 	cout << "Student ID: ";
 	cin >> x.Student_ID;
-	cout << "First Name: ";
+	cin.ignore();
+	getline(cin, x.First_Name);
 	cin >> x.First_Name;
 	cout << "Last Name: ";
 	cin >> x.Last_Name;
+	cout << "Gender: ";
+	cin >> x.Gender;
 	cout << "Date of Birth: ";
 	cin >> x.DateOfBirth;
 	cout << "Social ID: ";
@@ -220,43 +223,20 @@ Node_School_Year* findListStudent(List_School_Year l, string classname)
 
 
 //Semester
-void inputSemester(Semester& a, List_Year& lAll)
+Node_Course* findCourse(Semester a, string courseid)
 {
-	cout << "ENTER SEMESTER'S INFORMATION!" << endl;
-	cout << "NUMBER OF SEMESTER: " << endl;
-	cout << "1. Fall." << endl;
-	cout << "2. Summer." << endl;
-	cout << "3. Autumn." << endl;
-	cin >> a.Name;
-	cin.ignore();
-	lAll.tail->a.semester[a.Name - 1] = a;
-	a.SchoolYear = lAll.tail->a.Name;
-	cout << "START DATE: " << endl;
-	cin >> a.Start;
-	cout << "END DATE: " << endl;
-	cin >> a.End;
+	Node_Course* p = a.lC.head;
+	while (p != NULL)
+	{
+		if (p->course.CourseID == courseid) {
+			return p;
+		}
+		p = p->next;
+	}
 }
 
-void inputCourse(Course& a)
-{
-	cout << "ENTER COURSE'S INFORMATION!" << endl;
-	cout << "COURSE ID: ";
-	cin >> a.CourseID;
-	cout << "COURSE NAME: ";
-	cin >> a.CourseName;
-	cout << "CLASS NAME: ";
-	cin >> a.ClassName;
-	cout << "TEACHER NAME: ";
-	cin >> a.TeacherName;
-	cout << "NUMBER OF CREDITS: ";
-	cin >> a.Credits_num;
-	cin.ignore();
-	//cout << "THE MAXIMUM NUMBER OF STUDENTS IN THE COURSE: " << endl; DEFAULT: 50
-	cout << "DAY OF WEEK: ";
-	cin >> a.DayOfWeek;
-	cout << "THE SESSION:  ";
-	cin >> a.Session;
-}
+
+
 
 void updateCourse(Semester& a, string id)
 {
@@ -264,7 +244,7 @@ void updateCourse(Semester& a, string id)
 	while (p != NULL)
 	{
 		if (p->course.CourseID == id) {
-			inputCourse(p->course);
+			inputOneCourse(p->course);
 			return;
 		}
 		p = p->next;
@@ -295,79 +275,63 @@ void addStudenttoCourse(Semester& a, string id, Student extra)
 
 
 
-//void removeStudentOfCourse(Semester& a, string id, string StudentID)
-//{
-//	Node_Course* p = a.lC.head;
-//	while (p != NULL)
-//	{
-//		if (p->course.CourseID == id) {
-//			Node_Student* q = p->course.ListOfStudent.head;
-//			while (q != NULL)
-//			{
-//				if (q->User.Student_ID == StudentID) {
-//					p->course.ListOfStudent.tail->next = q;
-//					
-//				}
-//				p = p->next;
-//			}
-//		}
-//		p = p->next;
-//	}
-//}
+void removeStudentOfCourse(Semester& a, string id, string StudentID)
+{
+	Node_Course* p = a.lC.head;
+	while (p != NULL)
+	{
+		if (p->course.CourseID == id) { 
+			if (p->course.ListOfStudent.head->User.Student_ID == StudentID) removeHead(p->course.ListOfStudent);
+			else if (p->course.ListOfStudent.tail->User.Student_ID == StudentID) removeTail(p->course.ListOfStudent);
+			else removeMiddle(p->course.ListOfStudent, StudentID);
+		}
+		p = p->next;
+	}
+}
 
-// void deleteCourse(Semester & a, string id)
-//{
-//	Node_Course* p = a.lC.head;
-//	while (p != NULL)
-//	{
-//		if (p->course.CourseID == id) {
-//			
-//		}
-//		p = p->next;
-//	}
-//}
-
-//void SEMESTER(List_Year& lAll)
-//{
-//	cout << "6. Create a semester. " << endl;
-//	Semester Sdemo;
-//	inputSemester(Sdemo, lAll);
-//	cout << "7. Add a course to this semester. " << endl;
-//	initListCourse(Sdemo.lC);
-//	inputListCourse(Sdemo.lC);
-//	cout << "8. Upload a CSV file containing a list of student enrolled in the course." << endl;
-//	fstream Class22CTT2;
-//	List_Student lSOfCourse;
-//	Class22CTT2.open("22CTT2.csv", ios_base::in);
-//	initListStudent(lSOfCourse);
-//	inputListStudent(Class22CTT2, lSOfCourse);
-//	Sdemo.lC.tail->course.ListOfStudent = lSOfCourse;
-//	Class22CTT2.close();
-//	cout << "9. View the list of courses." << endl;
-//	outputListCourse(Sdemo);
-//	cout << "10. Update course information." << endl; //Update full information
-//	string updatingID;
-//	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO UPDATE: ";
-//	cin >> updatingID;
-//	updateCourse(Sdemo, updatingID);
-//	cout << "11. Add a student to the course." << endl;
-//	Student Sextra = enterOneStudent();
-//	string addID;
-//	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO ADD TO: ";
-//	cin >> addID;
-//	addStudenttoCourse(Sdemo, addID, Sextra);
-//	cout << "12. Remove a student from the course." << endl;
-//	string removeID;
-//	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO REMOVE A STUDENT: ";
-//	cin >> removeID;
-//	string SIDremove;
-//	cout << "ENTER STUDENT ID OF A STUDENT THAT YOU WANT TO REMOVE: ";
-//
-//	cout << "13. Delete a course." << endl;
-//	string deleteID;
-//	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO DELETE: ";
-//	cin >> deleteID;
-//}
+void deleteCourse(Semester & a, string id)
+{
+	if (a.lC.head == NULL) return;
+	if (a.lC.head->course.CourseID == id) {
+		a.lC.head = a.lC.head->next;
+	}
+	else if (a.lC.tail->course.CourseID == id) {
+		Node_Course* p = NULL;
+		Node_Course* q = a.lC.head;
+		while (q->next != NULL)
+		{
+			p = q;
+			q = q->next;
+		}
+		if (p == NULL)
+		{
+			a.lC.head = NULL;
+			a.lC.tail = NULL;
+		}
+		else
+		{
+			p->next = NULL;
+		}
+	}
+	else {
+		Node_Course* p = NULL, * q = a.lC.head, * temp = a.lC.head->next;
+		while (temp->next != NULL)
+		{
+			if (q->course.CourseID == id) break;
+			p = q;
+			q = q->next;
+		}
+		if (p == NULL)
+		{
+			a.lC.head = NULL;
+			a.lC.tail = NULL;
+		}
+		else
+		{
+			p->next = q->next;
+		}
+	}
+}
 
 //In a semester, a student still can:
 void viewListCourseOfStudent()
@@ -407,24 +371,24 @@ void viewAClass(List_Year lAll, string name)
 	}
 }
 
-void viewListCourses(List_Year lAll, string name, int semester)
-{
-	Node_Year* p = lAll.head;
-	while (p != NULL)
-	{
-		if (p->a.Name == name)
-		{
-			Semester temp = p->a.semester[semester - 1];
-			Node_Course* q = temp.lC.head;
-			while (q != NULL)
-			{
-				cout << q->course.CourseID << " - " << q->course.CourseName << endl;
-				q = q->next;
-			}
-		}
-		p = p->next;
-	}
-}
+//void viewListCourses(List_Year lAll, string name, int semester)
+//{
+//	Node_Year* p = lAll.head;
+//	while (p != NULL)
+//	{
+//		if (p->a.Name == name)
+//		{
+//			Semester temp = p->a.semester[semester - 1];
+//			Node_Course* q = temp.lC.head;
+//			while (q != NULL)
+//			{
+//				cout << q->course.CourseID << " - " << q->course.CourseName << endl;
+//				q = q->next;
+//			}
+//		}
+//		p = p->next;
+//	}
+//}
 
 void viewListStudentOfCourse()
 {
@@ -447,7 +411,7 @@ void viewAtAnyTime(List_Year lAll)
 	int semester;
 	cout << "ENTER NUMBER'S SEMESTER OF THE SCHOOL YEAR: ";
 	cin >> semester;
-	viewListCourses(lAll, schoolyearname, semester);
+	//viewListCourses(lAll, schoolyearname, semester);
 	cout << "18. View a list of student in a course." << endl;
 	string courseid;
 	cout << "ENTER COURSE ID OF THE COURSE THAT YOU WANT TO VIEW LIST STUDENT: ";

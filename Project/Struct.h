@@ -116,13 +116,22 @@ struct List_Course {
 };
 
 struct Semester {
-	int Name;
+	string Name;
 	string SchoolYear;
 	string Start;
 	string End;
 	List_Course lC;
 };
 
+struct Node_Semester {
+	Semester semester;
+	Node_Semester* next;
+};
+
+struct List_Semester {
+	Node_Semester* head;
+	Node_Semester* tail;
+};
 
 struct Node_School_Year {
 	List_Student a;
@@ -131,7 +140,7 @@ struct Node_School_Year {
 
 struct List_School_Year {
 	string Name;
-	Semester semester[3];
+	List_Semester lSemester;
 	Node_School_Year* head;
 	Node_School_Year* tail;
 };

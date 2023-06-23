@@ -153,7 +153,7 @@ void inputOneStudent(fstream& ListStudent, Student& x)
 void outputOneStudent(Student x)
 {
 	cout << "----------------------------------------------------------" << endl;
-	cout << "Number: " << x.No << endl;
+	//cout << "Number: " << x.No << endl;
 	cout << "ID: " << x.Student_ID << endl;
 	cout << "First Name: " << x.First_Name << endl;
 	cout << "Last Name: " << x.Last_Name << endl;
@@ -206,6 +206,7 @@ void initListSchoolYear(List_School_Year& l, string name)
 	l.head = NULL;
 	l.tail = NULL;
 	l.Name = name;
+	initListSemester(l.lSemester);
 }
 
 void inputOneSchoolYear(fstream& ListStudent, List_Student& x, string ClassName)
@@ -284,6 +285,30 @@ void outputListYear(List_Year lAll) //test inputListYear
 
 
 //Function of ListCourse
+void inputOneCourse(Course& a)
+{
+	cout << "ENTER COURSE'S INFORMATION!" << endl;
+	cout << "COURSE ID: ";
+	cin >> a.CourseID;
+	cout << "COURSE NAME: ";
+	cin.ignore();
+	getline(cin, a.CourseName);
+	cout << "CLASS NAME: ";
+	cin >> a.ClassName;
+	cout << "TEACHER NAME: ";
+	cin.ignore();
+	getline(cin, a.TeacherName);
+	cout << "NUMBER OF CREDITS: ";
+	cin >> a.Credits_num;
+	//cout << "THE MAXIMUM NUMBER OF STUDENTS IN THE COURSE: " << endl; DEFAULT: 50
+	cin.ignore();
+	cout << "DAY OF WEEK: ";
+	cin >> a.DayOfWeek;
+	cout << "THE SESSION:  ";
+	cin >> a.Session;
+	initListStudent(a.ListOfStudent, a.ClassName);
+}
+
 Node_Course* createNodeCourse(Course x)
 {
 	Node_Course* p = new Node_Course;
@@ -308,12 +333,26 @@ void outputOneCourse(Course x)
 	cout << "The maximum number of students in the course: " << x.Max_Student << endl;
 	cout << "Day of the week: " << x.DayOfWeek << endl;
 	cout << "The session: " << x.Session << endl;
+	cout << "List of Student: " << endl;
+	outputListStudent(x.ListOfStudent);
+}
+
+void outputCourseabb(Course x)
+{
+	cout << "Course ID: " << x.CourseID << endl;
+	cout << "Course name: " << x.CourseName << endl;
+	cout << "Class name: " << x.ClassName << endl;
+	cout << "Teacher name: " << x.TeacherName << endl;
+	cout << "Number of credits: " << x.Credits_num << endl;
+	cout << "The maximum number of students in the course: " << x.Max_Student << endl;
+	cout << "Day of the week: " << x.DayOfWeek << endl;
+	cout << "The session: " << x.Session << endl;
 }
 
 void inputListCourse(List_Course& l)
 {
 	Course x;
-	inputCourse(x);
+	inputOneCourse(x);
 	Node_Course* q = createNodeCourse(x);
 	if (l.head == NULL)
 	{
@@ -340,6 +379,138 @@ void outputListCourse(Semester a)
 		p = p->next;
 	}
 }
+
+//Semester
+Node_Semester* createNodeSemester(Semester x)
+{
+	Node_Semester* p = new Node_Semester;
+	p->semester = x;
+	p->next = NULL;
+	return p;
+}
+
+void initListSemester(List_Semester& l)
+{
+	l.head = NULL;
+	l.tail = NULL;
+}
+
+void inputSemester(Semester& a)
+{
+	cout << "ENTER SEMESTER'S INFORMATION!" << endl;
+	cout << "NUMBER OF SEMESTER: " << endl;
+	cout << "1. Fall." << endl;
+	cout << "2. Summer." << endl;
+	cout << "3. Autumn." << endl;
+	cin >> a.Name;
+	cout << "SCHOOL YEAR: " << endl;
+	cin >> a.SchoolYear;
+	cout << "START DATE: " << endl;
+	cin >> a.Start;
+	cout << "END DATE: " << endl;
+	cin >> a.End;
+	initListCourse(a.lC);
+}
+
+void outputOneSemster(Semester a)
+{
+	cout << "-------------------------------------------" << endl;
+	cout << "Number of semester: " << a.Name << endl;
+	cout << "School year: " << a.SchoolYear << endl;
+	cout << "Start date: " << a.Start << endl;
+	cout << "End date: " << a.End << endl;
+	cout << "List Of Courses: " << endl;
+	outputListCourse(a);
+	cout << "-------------------------------------------" << endl;
+}
+
+void inputListSemster(List_Year& lAll, Semester x)
+{
+	Node_Semester* q = createNodeSemester(x);
+	Node_Year* p = lAll.head;
+	while (p != NULL)
+	{
+		if (p->a.Name == x.SchoolYear)
+		{
+			if (p->a.lSemester.head == NULL)
+			{
+				p->a.lSemester.head = q;
+				p->a.lSemester.tail = q;
+			}
+			else
+			{
+				p->a.lSemester.tail->next = q;
+				p->a.lSemester.tail = q;
+			}
+		}
+		p = p->next;
+	}
+}
+
+void outputListSemester(List_Year& lAll)
+{
+	Node_Year* p = lAll.head;
+	while (p != NULL)
+	{
+		Node_Semester* q = p->a.lSemester.head;
+		cout << "------------------" << p->a.Name << "------------------" << endl;
+		while (q != NULL)
+		{
+			outputOneSemster(q->semester);
+			q = q->next;
+		}
+		p = p->next;
+	}
+}
+
+void removeHead(List_Student& l)
+{
+	if (l.head == NULL) return;
+	l.head = l.head->next;
+}
+
+void removeTail(List_Student& l)
+{
+	if (l.head == NULL) return;
+	Node_Student* p = NULL;
+	Node_Student* q = l.head;
+	while (q->next != NULL)
+	{
+		p = q;
+		q = q->next;
+	}
+	if (p == NULL) 
+	{
+		l.head = NULL;
+		l.tail = NULL;
+	}
+	else 
+	{
+		p->next = NULL;
+	}
+}
+
+void removeMiddle(List_Student& l, string IDStudent)
+{
+	if (l.head == NULL) return;
+	Node_Student* p = NULL, * q = l.head, * temp = l.head->next;
+	while (temp->next != NULL)
+	{
+		if (q->User.Student_ID == IDStudent) break;
+		p = q; 
+		q = q->next;
+	}
+	if (p == NULL)
+	{
+		l.head = NULL;
+		l.tail = NULL;
+	}
+	else
+	{
+		p->next = q->next;
+	}
+}
+
 
 
 

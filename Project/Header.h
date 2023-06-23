@@ -25,7 +25,7 @@ void inputListStaff(fstream& ListStaff, List_Staff& l);
 void outputListStaff(List_Staff l);
 
 
-void inputCourse(Course& a);
+void inputOneCourse(Course& a);
 void initListCourse(List_Course& l);
 
 
@@ -62,13 +62,32 @@ void outputListCourse(Semester a);
 Student enterOneStudent();
 void add1stStudent(List_School_Year& l, string addclass, Student x);
 Node_School_Year* findListStudent(List_School_Year l, string classname);
-void schoolYear(List_Year& lAll);
 
-//void SEMESTER(List_Year& lAll);
+
+void initListSemester(List_Semester& l);
+void inputSemester(Semester& a);
+void outputOneSemster(Semester a);
+void inputListSemster(List_Year& lAll, Semester x);
+void outputListSemester(List_Year& lAll);
+
+void inputOneCourse(Course& a);
+void outputOneCourse(Course x);
+void outputCourseabb(Course x);
+Node_Course* findCourse(Semester a, string courseid);
+void updateCourse(Semester& a, string id);
+void addStudenttoCourse(Semester& a, string id, Student extra);
+void removeHead(List_Student& l);
+void removeTail(List_Student& l);
+void removeMiddle(List_Student& l, string IDStudent);
+void removeStudentOfCourse(Semester& a, string id, string StudentID);
+void deleteCourse(Semester& a, string id);
+
 void viewListCourseOfStudent();
 void viewAtAnyTime(List_Year lAll);
 
 void loading(List_Year& lAll);
 void loginSystem(List_Year& lAll);
+void schoolYear(List_Year& lAll);
+void semester(List_Year& lAll);
 
 
