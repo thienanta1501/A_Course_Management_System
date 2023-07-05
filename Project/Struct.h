@@ -9,6 +9,7 @@ using namespace std;
 struct Course;
 struct List_Course;
 
+//Struct of List ID
 struct ID_User {
 	string Social_ID;
 	string Password;
@@ -24,8 +25,7 @@ struct List_ID {
 	Node_ID* tail;
 };
 
-
-
+//Struct of List Staff
 struct Staff {
 	string No;
 	string Staff_ID;
@@ -46,32 +46,7 @@ struct List_Staff {
 	Node_Staff* tail;
 };
 
-
-
-struct Student {
-	string No;
-	string Student_ID;
-	string First_Name;
-	string Last_Name;
-	string Gender;
-	string DateOfBirth;
-	string Social_ID;
-	//List_Course lCOfStudent;
-};
-
-struct Node_Student {
-	Student User;
-	Node_Student* next;
-};
-
-struct List_Student {
-	string ClassName;
-	Node_Student* head;
-	Node_Student* tail;
-};
-
-
-
+//Struct of Scoreboard
 struct StudentMark {
 	string No;
 	string Student_ID;
@@ -88,10 +63,33 @@ struct Node_StudentMark {
 };
 
 struct Scoreboard {
+	Node_StudentMark* head;
+	Node_StudentMark* tail;
+};
+
+//Struct of Student
+struct Student {
+	string No;
+	string Student_ID;
+	string First_Name;
+	string Last_Name;
+	string Gender;
+	string DateOfBirth;
+	string Social_ID;
+};
+
+struct Node_Student {
+	Student User;
+	Node_Student* next;
+};
+
+struct List_Student {
+	string ClassName;
 	Node_Student* head;
 	Node_Student* tail;
 };
 
+//Struct of Courses
 struct Course {
 	string CourseID;
 	string CourseName;
@@ -102,7 +100,7 @@ struct Course {
 	string DayOfWeek; //string Day[6] = {MON, TUE, WED, THU, FRI, SAT};
 	string Session; //string Session[4] = { S1 (07:30), S2 (09:30), S3 (13:30), S4 (15:30)}; 
 	List_Student ListOfStudent;
-	Scoreboard MarksOfClass;
+	Scoreboard MarksOfCourse;
 };
 
 struct Node_Course {
@@ -115,6 +113,7 @@ struct List_Course {
 	Node_Course* tail;
 };
 
+//Struct of Semester
 struct Semester {
 	string Name;
 	string SchoolYear;
@@ -133,6 +132,7 @@ struct List_Semester {
 	Node_Semester* tail;
 };
 
+//Struct of List Class of 1 school year
 struct Node_School_Year {
 	List_Student a;
 	Node_School_Year* next;
@@ -145,6 +145,7 @@ struct List_School_Year {
 	Node_School_Year* tail;
 };
 
+//Struct of List School year of School
 struct Node_Year {
 	List_School_Year a;
 	Node_Year* next;
@@ -154,7 +155,6 @@ struct List_Year {
 	Node_Year* head;
 	Node_Year* tail;
 };
-
 
 static ifstream ListIDin;
 static fstream ListStaff, Class18CTT2, Class18CTT3, Class18CTT4, Class19CTT2, Class19CTT3, Class19CTT4, Class20CTT2, Class20CTT3, Class20CTT4, Class21CTT2, Class21CTT3, Class21CTT4;

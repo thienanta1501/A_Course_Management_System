@@ -1,9 +1,6 @@
 #include "Struct.h"
 #include "Header.h"
 
-
-//Cac ham tao Node bth
-
 //Function of ListID
 Node_ID* createNodeID(ID_User x)
 {
@@ -21,7 +18,7 @@ void initListID(List_ID& l)
 
 void inputOneID(ifstream& ListID, ID_User& x)
 {
-	getline(ListID, x.Social_ID, ',');
+	getline(ListID, x.Social_ID, ','); 
 	getline(ListID, x.Password);
 }
 
@@ -31,17 +28,20 @@ void inputListID(ifstream& ListID, List_ID& l)
 	{
 		ID_User x;
 		inputOneID(ListID, x);
-		Node_ID* q = createNodeID(x);
-		if (l.head == NULL)
+		if (x.Social_ID.length() != 0)
 		{
-			l.head = q;
-			l.tail = q;
-		}
-		else
-		{
-			l.tail->next = q;
-			l.tail = q;
-		}
+			Node_ID* q = createNodeID(x);
+			if (l.head == NULL)
+			{
+				l.head = q;
+				l.tail = q;
+			}
+			else
+			{
+				l.tail->next = q;
+				l.tail = q;
+			}
+		}	
 	}
 }
 
@@ -99,16 +99,19 @@ void inputListStaff(fstream& ListStaff, List_Staff& l)
 	{
 		Staff x;
 		inputOneStaff(ListStaff, x);
-		Node_Staff* q = createNodeStaff(x);
-		if (l.head == NULL)
+		if (x.No.length() != 0)
 		{
-			l.head = q;
-			l.tail = q;
-		}
-		else
-		{
-			l.tail->next = q;
-			l.tail = q;
+			Node_Staff* q = createNodeStaff(x);
+			if (l.head == NULL)
+			{
+				l.head = q;
+				l.tail = q;
+			}
+			else
+			{
+				l.tail->next = q;
+				l.tail = q;
+			}
 		}
 	}
 }
@@ -168,16 +171,19 @@ void inputListStudent(fstream& ListStudent, List_Student& l)
 	{
 		Student x;
 		inputOneStudent(ListStudent, x);
-		Node_Student* q = createNodeStudent(x);
-		if (l.head == NULL)
+		if (x.No.length() != 0)
 		{
-			l.head = q;
-			l.tail = q;
-		}
-		else
-		{
-			l.tail->next = q;
-			l.tail = q;
+			Node_Student* q = createNodeStudent(x);
+			if (l.head == NULL)
+			{
+				l.head = q;
+				l.tail = q;
+			}
+			else
+			{
+				l.tail->next = q;
+				l.tail = q;
+			}
 		}
 	}
 }
@@ -236,7 +242,7 @@ void outputListSchoolYear(List_School_Year l) //test inputListSchoolYear
 	Node_School_Year* p = l.head;
 	while (p != NULL)
 	{
-		cout << "-----------------" << p->a.ClassName << "-----------------" << endl;
+		cout << "--------------------------" << p->a.ClassName << "--------------------------" << endl;
 		outputListStudent(p->a);
 		p = p->next;
 	}
@@ -277,12 +283,89 @@ void outputListYear(List_Year lAll) //test inputListYear
 	Node_Year* p = lAll.head;
 	while (p != NULL)
 	{
-		cout << "-----------------" << p->a.Name << "-----------------" << endl;
+		cout << "------------------------" << p->a.Name << "-------------------------" << endl;
 		outputListSchoolYear(p->a);
 		p = p->next;
 	}
 }
 
+//Function of Scoreboard
+Node_StudentMark* createNodeStudentMark(StudentMark x)
+{
+	Node_StudentMark* p = new Node_StudentMark;
+	p->a = x;
+	p->next = NULL;
+	return p;
+}
+
+void initScoreboard(Scoreboard& l)
+{
+	l.head = NULL;
+	l.tail = NULL;
+}
+
+void inputOneStudentMark(fstream& ScoreboradFile, StudentMark& x)
+{
+	string h;
+	getline(ScoreboradFile, x.No, ',');
+	if (x.No.length() == 0) return;
+	getline(ScoreboradFile, x.Student_ID, ',');
+	getline(ScoreboradFile, x.StudentFullName, ',');
+	getline(ScoreboradFile, h, ',');
+	x.TotalMark = stof(h);
+	getline(ScoreboradFile, h, ',');
+	x.FinalMark = stof(h);
+	getline(ScoreboradFile, h, ',');
+	x.MidtermMark = stof(h);
+	getline(ScoreboradFile, h);
+	x.OtherMark = stof(h);
+}
+
+void outputOneStudent(StudentMark x)
+{
+	cout << "----------------------------------------------------------" << endl;
+	//cout << "Number: " << x.No << endl;
+	cout << "ID: " << x.Student_ID << endl;
+	cout << "Full Name: " << x.StudentFullName << endl;
+	cout << "Total Mark: " << x.TotalMark << endl;
+	cout << "Final Mark: " << x.FinalMark << endl;
+	cout << "Midterm Mark: " << x.MidtermMark << endl;
+	cout << "Other Mark: " << x.OtherMark << endl;
+	cout << "----------------------------------------------------------" << endl;
+}
+
+void inputScoreboard(fstream& ScoreboardFile, Scoreboard& l)
+{
+	while (ScoreboardFile.eof() == false)
+	{
+		StudentMark x;
+		inputOneStudentMark(ScoreboardFile, x);
+		if (x.No.length() != 0)
+		{
+			Node_StudentMark* q = createNodeStudentMark(x);
+			if (l.head == NULL)
+			{
+				l.head = q;
+				l.tail = q;
+			}
+			else
+			{
+				l.tail->next = q;
+				l.tail = q;
+			}
+		}
+	}
+}
+
+void outputScoreboard(Scoreboard l)
+{
+	Node_StudentMark* p = l.head;
+	while (p != NULL)
+	{
+		outputOneStudent(p->a);
+		p = p->next;
+	}
+}
 
 //Function of ListCourse
 void inputOneCourse(Course& a)
@@ -307,6 +390,7 @@ void inputOneCourse(Course& a)
 	cout << "THE SESSION:  ";
 	cin >> a.Session;
 	initListStudent(a.ListOfStudent, a.ClassName);
+	initScoreboard(a.MarksOfCourse);
 }
 
 Node_Course* createNodeCourse(Course x)
@@ -335,6 +419,8 @@ void outputOneCourse(Course x)
 	cout << "The session: " << x.Session << endl;
 	cout << "List of Student: " << endl;
 	outputListStudent(x.ListOfStudent);
+	cout << "Scoreboard: " << endl;
+	outputScoreboard(x.MarksOfCourse);
 }
 
 void outputCourseabb(Course x)
@@ -463,6 +549,7 @@ void outputListSemester(List_Year& lAll)
 	}
 }
 
+//Removing
 void removeHead(List_Student& l)
 {
 	if (l.head == NULL) return;
@@ -493,8 +580,8 @@ void removeTail(List_Student& l)
 void removeMiddle(List_Student& l, string IDStudent)
 {
 	if (l.head == NULL) return;
-	Node_Student* p = NULL, * q = l.head, * temp = l.head->next;
-	while (temp->next != NULL)
+	Node_Student* p = NULL, * q = l.head;
+	while (q->next != NULL)
 	{
 		if (q->User.Student_ID == IDStudent) break;
 		p = q; 
@@ -510,6 +597,7 @@ void removeMiddle(List_Student& l, string IDStudent)
 		p->next = q->next;
 	}
 }
+
 
 
 

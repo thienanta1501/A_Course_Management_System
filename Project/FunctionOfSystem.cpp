@@ -14,9 +14,6 @@ void loading(List_Year& lAll)
 	initListStaff(lS);
 	inputListStaff(ListStaff, lS);
 	//outputListStaff(lS); //test inputListStaff
-	Class18CTT2.open("18CTT2.csv", ios_base::in);
-	Class18CTT3.open("18CTT3.csv", ios_base::in);
-	Class18CTT4.open("18CTT4.csv", ios_base::in);
 	Class19CTT2.open("19CTT2.csv", ios_base::in);
 	Class19CTT3.open("19CTT3.csv", ios_base::in);
 	Class19CTT4.open("19CTT4.csv", ios_base::in);
@@ -27,14 +24,6 @@ void loading(List_Year& lAll)
 	Class21CTT3.open("21CTT3.csv", ios_base::in);
 	Class21CTT4.open("21CTT4.csv", ios_base::in);
 	initListYear(lAll);
-	//Create 2018 - 2019
-	initListSchoolYear(_2018_2019, "2018-2019");
-	inputOneSchoolYear(Class18CTT2, l18CTT2, "18CTT2");
-	inputOneSchoolYear(Class18CTT3, l18CTT3, "18CTT3");
-	inputOneSchoolYear(Class18CTT4, l18CTT4, "18CTT4");
-	inputListSchoolYear(_2018_2019, l18CTT2);
-	inputListSchoolYear(_2018_2019, l18CTT3);
-	inputListSchoolYear(_2018_2019, l18CTT4);
 	//outputListSchoolYear(_2018_2019);
 	//Create 2019 - 2020
 	initListSchoolYear(_2019_2020, "2019-2020");
@@ -70,6 +59,15 @@ void loading(List_Year& lAll)
 	//outputListYear(lAll);  
 	ListIDin.close();
 	ListStaff.close();
+	Class19CTT2.close();
+	Class19CTT3.close();
+	Class19CTT4.close();
+	Class20CTT2.close();
+	Class20CTT3.close();
+	Class20CTT4.close();
+	Class21CTT2.close();
+	Class21CTT3.close();
+	Class21CTT4.close();
 }
 
 //A user must log in to the system
@@ -128,7 +126,15 @@ void viewInfo(List_Year lAll, ID_User* User)
 	}
 	if (checkInfoInListStudent(lAll, User) != 0)
 	{
-		outputOneStudent(checkInfoInListStudent(lAll, User)->User);
+		Student x = checkInfoInListStudent(lAll, User)->User;
+		cout << "---------------YOUR OWN PROFILE INFORMATION---------------" << endl;
+		cout << "Number: " << x.No << endl;
+		cout << "ID: " << x.Student_ID << endl;
+		cout << "First Name: " << x.First_Name << endl;
+		cout << "Last Name: " << x.Last_Name << endl;
+		cout << "Gender: " << x.Gender << endl;
+		cout << "Date of Birth: " << x.DateOfBirth << endl;
+		cout << "----------------------------------------------------------" << endl;
 		return;
 	}
 }
@@ -151,39 +157,22 @@ void changePassword(ID_User* User, List_ID& l, string newPassword)
 	p->User.Password = newPassword;
 }
 
-void outputFileListID(ofstream& ListID, List_ID l)
-{
-	Node_ID* p = l.head;
-	while (p != NULL)
-	{
-		ListID << p->User.Social_ID << ", " << p->User.Password << endl;
-		p = p->next;
-	}
-}
-
-//At the beginning of the school year (often in September), an academic staff member will
-//Create a school year (2021-2022...)
-
 //Create a school year
 Student enterOneStudent()
 {
 	Student x;
 	cout << "ENTER HIS/HER PROFILE INFORMATION!" << endl;
-	cout << "No: ";
-	cin >> x.No;
 	cout << "Student ID: ";
 	cin >> x.Student_ID;
-	cin.ignore();
-	getline(cin, x.First_Name);
-	cin >> x.First_Name;
 	cout << "Last Name: ";
-	cin >> x.Last_Name;
+	cin.ignore();
+	getline(cin, x.Last_Name);
+	cout << "First Name: ";
+	getline(cin, x.First_Name);
 	cout << "Gender: ";
 	cin >> x.Gender;
 	cout << "Date of Birth: ";
 	cin >> x.DateOfBirth;
-	cout << "Social ID: ";
-	cin >> x.Social_ID;
 	return x;
 }
 
@@ -209,18 +198,22 @@ void add1stStudent(List_School_Year& l, string addclass, Student x)
 	}
 }
 
-Node_School_Year* findListStudent(List_School_Year l, string classname)
+Node_School_Year* findListStudent(List_Year lAll, string classname)
 {
-	Node_School_Year* p = l.head;
+	Node_Year* p = lAll.head;
 	while (p != NULL)
 	{
-		if (p->a.ClassName == classname) {
-			return p;
+		Node_School_Year* q = p->a.head;
+		while (q != NULL)
+		{
+			if (q->a.ClassName == classname) {
+				return q;
+			}
+			q = q->next;
 		}
 		p = p->next;
 	}
 }
-
 
 //Semester
 Node_Course* findCourse(Semester a, string courseid)
@@ -228,15 +221,36 @@ Node_Course* findCourse(Semester a, string courseid)
 	Node_Course* p = a.lC.head;
 	while (p != NULL)
 	{
-		if (p->course.CourseID == courseid) {
-			return p;
-		}
+		if (p->course.CourseID == courseid)	return p;
 		p = p->next;
 	}
+	return 0;
 }
 
-
-
+Course enterOneCourse(string id)
+{
+	Course x;
+	x.CourseID = id;
+	cout << "COURSE NAME: ";
+	cin.ignore();
+	getline(cin, x.CourseName);
+	cout << "CLASS NAME: ";
+	cin >> x.ClassName;
+	cout << "TEACHER NAME: ";
+	cin.ignore();
+	getline(cin, x.TeacherName);
+	cout << "NUMBER OF CREDITS: ";
+	cin >> x.Credits_num;
+	//cout << "THE MAXIMUM NUMBER OF STUDENTS IN THE COURSE: " << endl; DEFAULT: 50
+	cin.ignore();
+	cout << "DAY OF WEEK: ";
+	cin >> x.DayOfWeek;
+	cout << "THE SESSION:  ";
+	cin >> x.Session;
+	initListStudent(x.ListOfStudent, x.ClassName);
+	initScoreboard(x.MarksOfCourse);
+	return x;
+}
 
 void updateCourse(Semester& a, string id)
 {
@@ -244,7 +258,7 @@ void updateCourse(Semester& a, string id)
 	while (p != NULL)
 	{
 		if (p->course.CourseID == id) {
-			inputOneCourse(p->course);
+			p->course = enterOneCourse(id);
 			return;
 		}
 		p = p->next;
@@ -272,8 +286,6 @@ void addStudenttoCourse(Semester& a, string id, Student extra)
 		p = p->next;
 	}
 }
-
-
 
 void removeStudentOfCourse(Semester& a, string id, string StudentID)
 {
@@ -314,8 +326,8 @@ void deleteCourse(Semester & a, string id)
 		}
 	}
 	else {
-		Node_Course* p = NULL, * q = a.lC.head, * temp = a.lC.head->next;
-		while (temp->next != NULL)
+		Node_Course* p = NULL, * q = a.lC.head;
+		while (q->next != NULL)
 		{
 			if (q->course.CourseID == id) break;
 			p = q;
@@ -333,7 +345,7 @@ void deleteCourse(Semester & a, string id)
 	}
 }
 
-//At any time, an academic staff member can:
+//At any time, an academic staff member can
 void viewListClasses(List_Year lAll)
 {
 	Node_Year* p = lAll.head;
@@ -414,16 +426,172 @@ void viewListStudentOfCourse(List_Year lAll, string courseid)
 	}
 }
 
-
-
-//At the end of a semester, an academic staff member can:
-void endSemester()
+//End Semester of Staff
+void outputFileListStudent(ofstream& ListStudent, Semester a, string id)
 {
-	cout << "19. Export a list of students in a course to a CSV file." << endl;
-
-	cout << "20. Import the scoreboard of a course.";
+	Node_Course* p = findCourse(a, id);
+	Node_Student* q = p->course.ListOfStudent.head;
+	while (q != NULL)
+	{
+		ListStudent << q->User.No << "," << q->User.Student_ID << "," << q->User.First_Name << "," << q->User.Last_Name << endl;
+		q = q->next;
+	}
+	return;
 }
 
-//When 
+void reenterOneStudentMark(StudentMark& x)
+{
+	cout << "ENTER " << x.StudentFullName << "'S RESULT!" << endl;
+	cout << "Total Mark: ";
+	cin >> x.TotalMark;
+	cout << "Final Mark: ";
+	cin >> x.FinalMark;
+	cout << "Midterm Mark: ";
+	cin >> x.MidtermMark;
+	cout << "Other Mark: ";
+	cin >> x.OtherMark;
+}
 
+void updateStudentResult(Course& a, string studentid)
+{
+	Node_StudentMark* p = a.MarksOfCourse.head;
+	while (p != NULL)
+	{
+		if (p->a.Student_ID == studentid) {
+			reenterOneStudentMark(p->a);
+			return;
+		}
+		p = p->next;
+	}
+}
 
+float findFinalMark(Course a, string studentid)
+{
+	Node_StudentMark* p = a.MarksOfCourse.head;
+	while (p != NULL)
+	{
+		if (p->a.Student_ID == studentid)
+		{
+			return p->a.TotalMark;
+		}
+		p = p->next;
+	}
+	return 0;
+}
+
+void viewListFinalMark(List_Course a, string studentid)
+{
+	int temp = 1;
+	Node_Course* p = a.head;
+	while (p != NULL)
+	{
+		if (findFinalMark(p->course, studentid) != 0)
+		{
+			cout << temp << ". " << endl;
+			temp++;
+			outputCourseabb(p->course);
+			cout << "Final Mark: " << findFinalMark(p->course, studentid) << endl;
+		}
+		p = p->next;
+	}
+}
+
+int countNumberCreditsOneSemester(Semester a, string studentid)
+{
+	int Num = 0;
+	Node_Course* p = a.lC.head;
+	while (p != NULL)
+	{
+		Node_StudentMark* q = p->course.MarksOfCourse.head;
+		while (q != NULL)
+		{
+			if (q->a.Student_ID == studentid) {
+				Num += p->course.Credits_num;
+			}
+			q = q->next;
+		}
+		p = p->next;
+	}
+	return Num;
+}
+
+float calGPAInOneSemester(Semester a, string studentid)
+{
+	float GPA = 0;
+	Node_Course* p = a.lC.head;
+	while (p != NULL)
+	{
+		Node_StudentMark* q = p->course.MarksOfCourse.head;
+		while (q != NULL)
+		{
+			if (q->a.Student_ID == studentid)
+			{
+				GPA += q->a.TotalMark * p->course.Credits_num;
+			}
+			q = q->next;
+		}
+		p = p->next;
+	}
+	GPA /= countNumberCreditsOneSemester(a, studentid);
+	//Neu Num = 0 cout << "Khong co hoc mon nao trong ky nay!" << endl;
+	return GPA;
+}
+
+int countNumberCreditsAllSemester(List_Year lAll, string studentid)
+{
+	int Num = 0;
+	Node_Year* p = lAll.head;
+	while (p != NULL)
+	{
+		Node_Semester* q = p->a.lSemester.head;
+		while (q != NULL)
+		{
+			Node_Course* r = q->semester.lC.head;
+			while (r != NULL)
+			{
+				Node_StudentMark* w = r->course.MarksOfCourse.head;
+				while (w != NULL)
+				{
+					if (w->a.Student_ID == studentid) {
+						Num += r->course.Credits_num;
+					}
+					w = w->next;
+				}
+				r = r->next;
+			}
+			q = q->next;
+		}
+		p = p->next;
+	}
+	return Num;
+}
+
+float calOverallGPA(List_Year lAll, string studentid)
+{
+	float GPA = 0;
+	Node_Year* p = lAll.head;
+	while (p != NULL)
+	{
+		Node_Semester* q = p->a.lSemester.head;
+		while (q != NULL)
+		{
+			Node_Course* r = q->semester.lC.head;
+			while (r != NULL)
+			{
+				Node_StudentMark* w = r->course.MarksOfCourse.head;
+				while (w != NULL)
+				{
+					if (w->a.Student_ID == studentid) {
+						GPA += w->a.TotalMark * r->course.Credits_num;
+					}
+					w = w->next;
+				}
+				r = r->next;
+			}
+			q = q->next;
+		}
+		p = p->next;
+	}
+	GPA /= countNumberCreditsAllSemester(lAll, studentid);
+	return GPA;
+}

@@ -1,31 +1,10 @@
 #include "Struct.h"
 #include "Header.h"
 
-//Menu School year void SCHOOLYEAR(List_Year& lAll)
-//Menu Begin Semester void SEMESTER(List_Year& lAll)
-// void viewListCourseOfStudent()
-//void viewAtAnyTime()
-
-/*THANG 9 CREATE NEW SCHOOL YEAR NEW SEMESTER 1
-				THANG 1 NEW SEMESTER 2
-				THANG 5 NEW SEMESTER 3
-				//Dau semester
-				6 -> 13 (Staff)
-				15 -> 18 (Staff)
-
-				//Semester
-				14 (Student)
-				15 -> 18 (Staff)
-				//Cuoi semester
-				15 -> 18 (Staff)
-				19 -> 23 (Staff)
-				24 (Student)
-				*/
-
 string identifyUser(ID_User* User)
 {
 	int temp = stoi(User->Social_ID);
-	if (temp < 10000000) return "Staff";
+	if (temp < 10000000) return "Staff"; //StaffID < 10000000
 	else return "Student";
 }
 
@@ -43,73 +22,78 @@ void interfaceOfStudent(List_Year& lAll, ID_User* User)
 		{
 		case 1: {
 			system("cls");
-			//Dau semester 2
 			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
 			system("pause");
+			break;
 		}
 		case 2: {
 			system("cls");
-			//Semester 2
 			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
 			system("pause");
+			break;
 		}
 		case 3: {
 			system("cls");
-			//Semester 2
 			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
 			system("pause");
+			break;
 		}
 		case 4: {
 			system("cls");
-			//Cuoi Semester 2
 			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			viewScoreboardOfStudent(lAll, User->Social_ID);
 			system("pause");
+			break;
 		}
 		case 5: {
 			system("cls");
-			//Dau semester 3
 			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
 			system("pause");
+			break;
 		}
 		case 6: {
 			system("cls");
-			//Semester 3
 			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
 			system("pause");
+			break;
 		}
 		case 7: {
 			system("cls");
-			//Semester 3
 			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
 			system("pause");
+			break;
 		}
 		case 8: {
-			//Cuoi Semester 3
+			system("cls");
 			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			viewScoreboardOfStudent(lAll, User->Social_ID);
 			system("pause");
+			break;
 		}
 		case 9: {
 			system("cls");
 			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
 			system("pause");
+			break;
 		}
 		case 10: {
 			system("cls");
-			//Semester 1
 			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
 			system("pause");
+			break;
 		}
 		case 11: {
 			system("cls");
-			//Semester 1
 			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
 			system("pause");
+			break;
 		}
 		case 12: {
 			system("cls");
-			//Cuoi Semester 1
 			viewListCourseOfStudent(lAll.tail->a.lSemester.tail->semester, User->Social_ID);
+			viewScoreboardOfStudent(lAll, User->Social_ID);
 			system("pause");
+			break;
 		}
 		default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
 		}
@@ -132,7 +116,6 @@ void interfaceOfStaff(List_Year& lAll, ID_User* User)
 		{
 		case 1: {
 			system("cls");
-			//Dau semester 2
 			beginSemester(lAll);
 			viewAtAnyTime(lAll);
 			system("pause");
@@ -140,28 +123,25 @@ void interfaceOfStaff(List_Year& lAll, ID_User* User)
 		}
 		case 2: {
 			system("cls");
-			//Semester 2
 			viewAtAnyTime(lAll);
 			system("pause");
 			break;
 		}
 		case 3: {
 			system("cls");
-			//Semester 2
 			viewAtAnyTime(lAll);
 			system("pause");
 			break;
 		}
 		case 4: {
 			system("cls");
-			//Cuoi Semester 2
+			endSemester(lAll);
 			viewAtAnyTime(lAll);
 			system("pause");
 			break;
 		}
 		case 5: {
 			system("cls");
-			//Dau semester 3
 			beginSemester(lAll);
 			viewAtAnyTime(lAll);
 			system("pause");
@@ -169,59 +149,54 @@ void interfaceOfStaff(List_Year& lAll, ID_User* User)
 		}
 		case 6: {
 			system("cls");
-			//Semester 3
 			viewAtAnyTime(lAll);
 			system("pause");
 			break;
 		}
 		case 7: {
 			system("cls");
-			//Semester 3
 			viewAtAnyTime(lAll);
 			system("pause");
 			break;
 		}
 		case 8: {
 			system("cls");
-			//Cuoi Semester 3
+			endSemester(lAll);
 			viewAtAnyTime(lAll);
 			system("pause");
 			break;
 		}
 		case 9: {
 			system("cls");
-			//Dau school year
 			schoolYear(lAll);
-			//Dau semester 1
 			beginSemester(lAll);
-			//viewAtAnyTime();
+			viewAtAnyTime(lAll);
+			endSemester(lAll);
 			system("pause");
 			break;
 		}
 		case 10: {
 			system("cls");
-			//Semester 1
 			viewAtAnyTime(lAll);
 			system("pause");
 			break;
 		}
 		case 11: {
 			system("cls");
-			//Semester 1
 			viewAtAnyTime(lAll);
 			system("pause");
 			break;
 		}
 		case 12: {
 			system("cls");
-			//Cuoi Semester 1
+			endSemester(lAll);
 			viewAtAnyTime(lAll);
 			system("pause");
 			break;
 		}
 		default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
 		}
-		cout << "DO YOU WANT TO CONTINUE WITH UPDATING INFORMATION OF SCHOOL?" << endl;
+		cout << "DO YOU WANT TO CONTINUE TO UPDATE INFORMATION OF SCHOOL?" << endl;
 		cout << "0. No!" << endl;
 		cout << "1. Yes!" << endl;
 		cin >> _temp;
@@ -231,9 +206,11 @@ void interfaceOfStaff(List_Year& lAll, ID_User* User)
 
 void schoolYear(List_Year& lAll)
 {
-	string temp;
-	while (1)
+	int _temp = 1;
+	while (_temp)
 	{
+		string temp;
+		system("cls");
 		cout << "Hello, September! It's time to begin new school year!" << endl;
 		cout << "-----------------------MENU-----------------------" << endl;
 		cout << "1. Create a school year." << endl;
@@ -241,7 +218,6 @@ void schoolYear(List_Year& lAll)
 		cout << "3. Add new 1st year students to 1st-year classes." << endl;
 		cout << "4. Import a CSV file containing all students in a specific class to the system, instead of adding one by one." << endl;
 		cout << "5. Show list of students including 2nd-year, 3rd-year, or 4th-year students." << endl;
-
 		cout << "--------------------------------------------------" << endl;
 		cout << "CHOOSE YOUR ACTION!" << endl;
 		cin >> temp;
@@ -255,7 +231,6 @@ void schoolYear(List_Year& lAll)
 			cout << "ENTER NAME OF THE NEW SCHOOL YEAR: ";
 			cin >> SchoolYearName;
 			List_School_Year _2022_2023;
-			outputListYear(lAll);
 			initListSchoolYear(_2022_2023, SchoolYearName);
 			inputListYear(lAll, _2022_2023);
 			outputListYear(lAll);
@@ -269,7 +244,7 @@ void schoolYear(List_Year& lAll)
 			{
 				string ClassName;
 				List_Student newCLass;
-				cout << "ENTER NAME OF CLASS THAT YOU WANT TO: ";
+				cout << "ENTER NAME OF CLASS THAT YOU WANT TO ADD: ";
 				cin >> ClassName;
 				initListStudent(newCLass, ClassName);
 				inputListSchoolYear(lAll.tail->a, newCLass);
@@ -307,7 +282,7 @@ void schoolYear(List_Year& lAll)
 				cin >> filename;
 				filename += ".csv";
 				csvfile.open(filename, ios_base::in);
-				inputListStudent(csvfile, findListStudent(lAll.tail->a, classname)->a);
+				inputListStudent(csvfile, findListStudent(lAll, classname)->a);
 				csvfile.close();
 				cout << "DO YOU WANT TO CONTINUE?" << endl;
 				cout << "0. No!" << endl;
@@ -327,6 +302,10 @@ void schoolYear(List_Year& lAll)
 		}
 		default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
 		}
+		cout << "DO YOU WANT TO CONTINUE TO UPDATE INFORMATION OF SCHOOL?" << endl;
+		cout << "0. No!" << endl;
+		cout << "1. Yes!" << endl;
+		cin >> _temp;
 	}
 	
 }
@@ -337,6 +316,7 @@ void beginSemester(List_Year& lAll)
 	while (_temp)
 	{
 		string temp;
+		system("cls");
 		cout << "Hello! It's time to begin new semester!" << endl;
 		cout << "-----------------------MENU-----------------------" << endl;
 		cout << "6. Create a semester." << endl;
@@ -455,7 +435,7 @@ void beginSemester(List_Year& lAll)
 		}
 		default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
 		}
-		cout << "DO YOU WANT TO CONTINUE WITH UPDATING THE NEW SEMESTER?" << endl;
+		cout << "DO YOU WANT TO CONTINUE TO UPDATE THE NEW SEMESTER?" << endl;
 		cout << "0. No!" << endl;
 		cout << "1. Yes!" << endl;
 		cin >> _temp;
@@ -491,6 +471,7 @@ void viewAtAnyTime(List_Year lAll)
 	while (_temp)
 	{
 		string temp;
+		system("cls");
 		cout << "Hello! What do you want to view?" << endl;
 		cout << "-----------------------MENU-----------------------" << endl;
 		cout << "15. View a list of classes." << endl;
@@ -542,10 +523,154 @@ void viewAtAnyTime(List_Year lAll)
 		}
 		default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
 		}
-		cout << "DO YOU WANT TO CONTINUE WITH VIEW LISTS?" << endl;
+		cout << "DO YOU WANT TO CONTINUE VIEWING LISTS?" << endl;
 		cout << "0. No!" << endl;
 		cout << "1. Yes!" << endl;
 		cin >> _temp;
+	}
+}
+
+void endSemester(List_Year& lAll)
+{
+	int _temp = 1;
+	while (_temp)
+	{
+		string temp;
+		system("cls");
+		cout << "Hello! It's time to finish the current semester!" << endl;
+		cout << "-----------------------MENU-----------------------" << endl;
+		cout << "19. Export a list of students in a course to a CSV file." << endl;
+		cout << "20. Import the scoreboard of a course." << endl;
+		cout << "21. View a scoreboard of a course." << endl;
+		cout << "22. Update a student's result." << endl;
+		cout << "23. View the scoreboard of a class, including final marks of all courses in the semester, GPA in this semester, and the overall GPA." << endl;
+		cout << "--------------------------------------------------" << endl;
+		cout << "CHOOSE YOUR ACTION!" << endl;
+		cin >> temp;
+		int select;
+		select = stoi(temp);
+		switch (select)
+		{
+		case 19: {
+			system("cls");
+			string select = "1";
+			while (select == "1")
+			{
+				string filename;
+				ofstream csvfile;
+				string courseid;
+				cout << "ENTER COURSE ID OF THE COURSE: ";
+				cin >> courseid;
+				cout << "ENTER NAME OF A CSV FILE THAT YOU WANT TO EXPORT: ";
+				cin >> filename;
+				filename += ".csv";
+				csvfile.open(filename, ios_base::out);
+				outputFileListStudent(csvfile, lAll.tail->a.lSemester.tail->semester, courseid);
+				csvfile.close();
+				cout << "DO YOU WANT TO CONTINUE EXPORTING OTHER COURSE?" << endl;
+				cout << "0. No!" << endl;
+				cout << "1. Yes!" << endl;
+				cin >> select;
+			}
+			system("pause");
+			break;
+		}
+		case 20: {
+			system("cls");
+			string select = "1";
+			while (select == "1")
+			{
+				fstream csvfile;
+				string filename, courseid;
+				cout << "ENTER COURSE ID OF THE COURSE: ";
+				cin >> courseid;
+				cout << "ENTER NAME OF A CSV FILE THAT YOU WANT TO UPLOAD: ";
+				cin >> filename;
+				filename += ".csv";
+				csvfile.open(filename, ios_base::in);
+				inputScoreboard(csvfile, findCourse(lAll.tail->a.lSemester.tail->semester, courseid)->course.MarksOfCourse);
+				csvfile.close();
+				cout << "DO YOU WANT TO CONTINUE IMPORT?" << endl;
+				cout << "0. No!" << endl;
+				cout << "1. Yes!" << endl;
+				cin >> select;
+			}
+			outputOneSemster(lAll.tail->a.lSemester.tail->semester);
+			system("pause");
+			break;
+		}
+		case 21: {
+			system("cls");
+			string courseid;
+			cout << "ENTER COURSE ID OF THE COURSE: ";
+			cin >> courseid;
+			outputScoreboard(findCourse(lAll.tail->a.lSemester.tail->semester, courseid)->course.MarksOfCourse);
+			system("pause");
+			break;
+		}
+		case 22: {
+			system("cls");
+			string courseid;
+			cout << "ENTER COURSE ID OF THE COURSE HAS A STUDENT THAT YOU WANT TO UPDATE HIS/HER RESULT: ";
+			cin >> courseid;
+			string studentid;
+			cout << "ENTER STUDENT ID OF THE STUDENT THAT YOU WANT UPDATE HIS/HER RESULT: ";
+			cin >> studentid;
+			updateStudentResult(findCourse(lAll.tail->a.lSemester.tail->semester, courseid)->course, studentid);
+			outputOneSemster(lAll.tail->a.lSemester.tail->semester);
+			system("pause");
+			break;
+		}
+		case 23: {
+			system("cls");
+			string classname;
+			cout << "ENTER NAME OF THE CLASS THAT YOU WANT VIEW THE SCOREBOARD: ";
+			cin >> classname;
+			List_Student Class = findListStudent(lAll, classname)->a;
+			cout << "---------------THE SCOREBOARD OF " << classname << "---------------" << endl;
+			Node_Student* p = Class.head;
+			while (p != NULL)
+			{
+				viewScoreboardOfStudent(lAll, p->User.Student_ID);
+				p = p->next;
+			}
+			system("pause");
+			break;
+		}
+		default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
+		}
+		cout << "DO YOU WANT TO CONTINUE WITH END SEMESTER?" << endl;
+		cout << "0. No!" << endl;
+		cout << "1. Yes!" << endl;
+		cin >> _temp;
+	}
+}
+
+//End Semester of Student
+void viewScoreboardOfStudent(List_Year lAll, string studentid)
+{
+	Node_Year* p = lAll.head;
+	while (p != NULL)
+	{
+		Node_School_Year* q = p->a.head;
+		while (q != NULL)
+		{
+			Node_Student* r = q->a.head;
+			while (r != NULL)
+			{
+				if (r->User.Student_ID == studentid) {
+					cout << "-------------------" << r->User.First_Name << " " << r->User.Last_Name << "-------------------" << endl;
+					viewListFinalMark(lAll.tail->a.lSemester.tail->semester.lC, r->User.Student_ID);
+					cout << fixed << setprecision(2);
+					cout << "GPA in this semester: " << calGPAInOneSemester(lAll.tail->a.lSemester.tail->semester, r->User.Student_ID) << endl;
+					cout << "The overall GPA: " << calOverallGPA(lAll, r->User.Student_ID) << endl;
+					return;
+				}
+				r = r->next;
+			}
+			q = q->next;
+		}
+		p = p->next;
 	}
 }
 
@@ -572,11 +697,12 @@ void loginSystem(List_Year& lAll)
 				cin >> User->Password;
 			} while (!checkID(User));
 		}
-		cout << "LOG IN SUCCESSFULLY!" << endl;
 		while (1)
 		{
 			int select;
 			do {
+				system("cls");
+				cout << "LOG IN SUCCESSFULLY!" << endl;
 				cout << "-----------------------MENU-----------------------" << endl;
 				cout << "1. View your profile info." << endl;
 				cout << "2. Change your password." << endl;
@@ -600,12 +726,6 @@ void loginSystem(List_Year& lAll)
 				cout << "ENTER YOUR PASSWORD THAT YOU WANT TO CHANGE INTO: ";
 				cin >> newPassword;
 				changePassword(User, lID, newPassword);
-				//outputListID(lID);
-				//ofstream ListIDout;
-				//ListIDout.open("ListID.csv", ios::out);
-				//outputFileListID(ListIDout, lID);
-				//ListIDout.close();
-				//inputListID(ListIDin, lID);
 				system("pause");
 				break;
 			}
@@ -626,9 +746,7 @@ void loginSystem(List_Year& lAll)
 			}
 			default: cout << "IS IT WRONG? REENTER, PLEASE!" << endl;
 			}
-
 		}
-		
 	}
 }
 
