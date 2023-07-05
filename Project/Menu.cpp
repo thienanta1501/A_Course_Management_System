@@ -227,6 +227,7 @@ void schoolYear(List_Year& lAll)
 		{
 		case 1: {
 			system("cls");
+			cout << "1. Create a school year." << endl;
 			string SchoolYearName;
 			cout << "ENTER NAME OF THE NEW SCHOOL YEAR: ";
 			cin >> SchoolYearName;

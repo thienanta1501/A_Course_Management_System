@@ -1,8 +1,6 @@
 #include "Struct.h"
 #include "Header.h"
 
-
-//Khoi tao du lieu cua he thong
 void loading(List_Year& lAll)
 {
 	//A function discribe when A Academic Staff Member import all Files
