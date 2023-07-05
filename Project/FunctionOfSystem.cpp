@@ -14,15 +14,15 @@ void loading(List_Year& lAll)
 	initListStaff(lS);
 	inputListStaff(ListStaff, lS);
 	//outputListStaff(lS); //test inputListStaff
-	Class19CTT2.open("19CTT2.csv", ios_base::in);
-	Class19CTT3.open("19CTT3.csv", ios_base::in);
-	Class19CTT4.open("19CTT4.csv", ios_base::in);
-	Class20CTT2.open("20CTT2.csv", ios_base::in);
-	Class20CTT3.open("20CTT3.csv", ios_base::in);
-	Class20CTT4.open("20CTT4.csv", ios_base::in);
-	Class21CTT2.open("21CTT2.csv", ios_base::in);
-	Class21CTT3.open("21CTT3.csv", ios_base::in);
-	Class21CTT4.open("21CTT4.csv", ios_base::in);
+	Class19CTT2.open("ListClass/19CTT2.csv", ios_base::in);
+	Class19CTT3.open("ListClass/19CTT3.csv", ios_base::in);
+	Class19CTT4.open("ListClass/19CTT4.csv", ios_base::in);
+	Class20CTT2.open("ListClass/20CTT2.csv", ios_base::in);
+	Class20CTT3.open("ListClass/20CTT3.csv", ios_base::in);
+	Class20CTT4.open("ListClass/20CTT4.csv", ios_base::in);
+	Class21CTT2.open("ListClass/21CTT2.csv", ios_base::in);
+	Class21CTT3.open("ListClass/21CTT3.csv", ios_base::in);
+	Class21CTT4.open("ListClass/21CTT4.csv", ios_base::in);
 	initListYear(lAll);
 	//outputListSchoolYear(_2018_2019);
 	//Create 2019 - 2020

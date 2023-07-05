@@ -280,7 +280,7 @@ void schoolYear(List_Year& lAll)
 				cin >> classname;
 				cout << "ENTER NAME OF A CSV FILE THAT YOU WANT TO IMPORT: ";
 				cin >> filename;
-				filename += ".csv";
+				filename = "ListClass/" + filename + ".csv";
 				csvfile.open(filename, ios_base::in);
 				inputListStudent(csvfile, findListStudent(lAll, classname)->a);
 				csvfile.close();
@@ -361,7 +361,7 @@ void beginSemester(List_Year& lAll)
 				cin >> courseid;
 				cout << "ENTER NAME OF A CSV FILE THAT YOU WANT TO UPLOAD: ";
 				cin >> filename;
-				filename += ".csv";
+				filename = "ListCourse/" + filename + ".csv";
 				csvfile.open(filename, ios_base::in);
 				inputListStudent(csvfile, findCourse(lAll.tail->a.lSemester.tail->semester, courseid)->course.ListOfStudent);
 				csvfile.close();
@@ -563,7 +563,7 @@ void endSemester(List_Year& lAll)
 				cin >> courseid;
 				cout << "ENTER NAME OF A CSV FILE THAT YOU WANT TO EXPORT: ";
 				cin >> filename;
-				filename += ".csv";
+				filename = "Scoreboard/" + filename + ".csv";
 				csvfile.open(filename, ios_base::out);
 				outputFileListStudent(csvfile, lAll.tail->a.lSemester.tail->semester, courseid);
 				csvfile.close();
@@ -586,7 +586,7 @@ void endSemester(List_Year& lAll)
 				cin >> courseid;
 				cout << "ENTER NAME OF A CSV FILE THAT YOU WANT TO UPLOAD: ";
 				cin >> filename;
-				filename += ".csv";
+				filename = "Scoreboard/" + filename + ".csv";
 				csvfile.open(filename, ios_base::in);
 				inputScoreboard(csvfile, findCourse(lAll.tail->a.lSemester.tail->semester, courseid)->course.MarksOfCourse);
 				csvfile.close();
