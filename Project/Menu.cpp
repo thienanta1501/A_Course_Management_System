@@ -296,7 +296,8 @@ void schoolYear(List_Year& lAll)
 		}
 		case 5: {
 			system("cls");
-			cout << "You don't need to add 2nd-year, 3rd-year, or 4th-year students, because these students had been added in the previous years.";
+			cout << "You don't need to add 2nd-year, 3rd-year, or 4th-year students, because these students had been added";
+			cout << "in the previous years." << endl;
 			outputListYear(lAll);
 			system("pause");
 			break;
