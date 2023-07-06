@@ -1,6 +1,7 @@
 ﻿  FunctionOfSystem.cpp
   Menu.cpp
   Generating Code...
-C:\Users\ADMIN\OneDrive - VNU-HCMUS\TA\A_Course_Management_System\Project\FunctionOfSystem.cpp(118): warning C4715: 'checkInfoInListStudent': not all control paths return a value
-C:\Users\ADMIN\OneDrive - VNU-HCMUS\TA\A_Course_Management_System\Project\FunctionOfSystem.cpp(216): warning C4715: 'findListStudent': not all control paths return a value
+C:\Users\ADMIN\OneDrive - VNU-HCMUS\TA\A_Course_Management_System\Project\FunctionOfSystem.cpp(116): warning C4715: 'checkInfoInListStudent': not all control paths return a value
+C:\Users\ADMIN\OneDrive - VNU-HCMUS\TA\A_Course_Management_System\Project\FunctionOfSystem.cpp(214): warning C4715: 'findListStudent': not all control paths return a value
+  LINK : program database C:\Users\ADMIN\OneDrive - VNU-HCMUS\TA\A_Course_Management_System\Debug\Project.pdb missing; performing full link
   Project.vcxproj -> C:\Users\ADMIN\OneDrive - VNU-HCMUS\TA\A_Course_Management_System\Debug\Project.exe

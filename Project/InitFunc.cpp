@@ -586,7 +586,8 @@ void removeMiddle(List_Student& l, string IDStudent)
 		if (q->User.Student_ID == IDStudent) break;
 		p = q; 
 		q = q->next;
-	}
+	} 
+	if (q == l.tail) return;
 	if (p == NULL)
 	{
 		l.head = NULL;
