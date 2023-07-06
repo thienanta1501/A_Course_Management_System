@@ -530,7 +530,8 @@ float calGPAInOneSemester(Semester a, string studentid)
 		}
 		p = p->next;
 	}
-	GPA /= countNumberCreditsOneSemester(a, studentid);
+	if (countNumberCreditsOneSemester(a, studentid) != 0) GPA /= countNumberCreditsOneSemester(a, studentid);
+	else GPA = 0;
 	//Neu Num = 0 cout << "Khong co hoc mon nao trong ky nay!" << endl;
 	return GPA;
 }
